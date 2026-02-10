@@ -12,7 +12,6 @@ public class PersistenciaEventosController {
 
     public static void guardarEventos(List<Evento> eventos) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_EVENTOS))) {
-
             for (Evento e : eventos) {
                 bw.write(e.getIdEvento() + ";" +
                         e.getNombre() + ";" +
@@ -23,7 +22,6 @@ public class PersistenciaEventosController {
                         serializarMatriz(e.getAsientos()));
                 bw.newLine();
             }
-            bw.close();
         }
     }
 
@@ -34,18 +32,20 @@ public class PersistenciaEventosController {
             for (int j = 0; j < matriz[i].length; j++) {
                 sb.append(matriz[i][j] ? "1" : "0");
             }
-            if (i < matriz.length - 1) sb.append("|");
+            if (i < matriz.length - 1) {
+                sb.append("|");
+            }
         }
         return sb.toString();
     }
 
-    private static boolean[][] deserializarMatriz(String Texto, int filas, int columnas) {
+    private static boolean[][] deserializarMatriz(String texto, int filas, int columnas) {
         boolean[][] matriz = new boolean[filas][columnas];
         String[] filasTexto = texto.split("\\|");
 
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                matriz[i][j] = filas.Texto(i).charAt(j) == '1';
+                matriz[i][j] = filasTexto[i].charAt(j) == '1';
             }
         }
         return matriz;
@@ -59,24 +59,25 @@ public class PersistenciaEventosController {
             return eventos;
         }
 
-        try(BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
 
             while ((linea = br.readLine()) != null) {
                 String[] datos = linea.split(";");
 
-                    String id = datos[0];
-                    String nombre = datos[1];
-                    String fecha = datos[2];
-                    double precioBase = Double.parseDouble(datos[3]);
-                    int filas = Integer.parseInt(datos[4]);
-                    int columnas = Integer.parseInt(datos[5]);
-                    boolean[][] asientos = deserializarMatriz(datos[6], filas, columnas);
+                String id = datos[0];
+                String nombre = datos[1];
+                String fecha = datos[2];
+                double precioBase = Double.parseDouble(datos[3]);
+                int filas = Integer.parseInt(datos[4]);
+                int columnas = Integer.parseInt(datos[5]);
+                boolean[][] asientos = deserializarMatriz(datos[6], filas, columnas);
 
-                    Evento evento = new Evento(id, nombre, fecha, precioBase, asientos);
-                    eventos.add(evento);
-                }
+                Evento evento = new Evento(id, nombre, fecha, precioBase, filas, columnas);
+                evento.setAsientos(asientos);
+                eventos.add(evento);
             }
-        return eventos;
         }
+        return eventos;
+    }
 }

@@ -277,7 +277,7 @@ public class AdminViewController {
     @FXML
     private void exportarEventos() {
         try {
-            persistenciaEventosController.guardarEventos(eventoCtrl.getEventos());
+            PersistenciaEventosController.guardarEventos(eventoCtrl.getEventos());
             mostrarAlerta("Éxito", "Eventos exportados correctamente", Alert.AlertType.INFORMATION);
         } catch (IOException e) {
             mostrarAlerta("Error", "Error al exportar eventos: " + e.getMessage(), Alert.AlertType.ERROR);

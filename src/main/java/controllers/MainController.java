@@ -11,6 +11,9 @@ import java.io.IOException;
 
 public class MainController {
 
+   private static EventoController eventoController = new EventoController();
+
+
     @FXML
     private void abrirVistaAdmin() {
         try {
@@ -57,7 +60,7 @@ public class MainController {
     private void salir() {
 
         try {
-            persistenciaEventosController.guardarEventos(EventoController.getEventos());
+            PersistenciaEventosController.guardarEventos(eventoController.getEventos());
             System.exit(0);
         } catch (IOException e) {
             mostrarError("Error al guardar los datos");
@@ -69,5 +72,9 @@ public class MainController {
         alert.setTitle("Error");
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    public static EventoController getEventoController() {
+        return eventoController;
     }
 }
