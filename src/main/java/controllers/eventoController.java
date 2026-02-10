@@ -19,7 +19,6 @@ public class eventoController {
         eventos.add(nuevo);
     }
 
-
     public boolean editarEvento(String idEvento, String nuevoNombre,
                                 String nuevaFecha, double nuevoPrecioBase) {
 
