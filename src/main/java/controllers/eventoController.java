@@ -66,7 +66,7 @@ public class eventoController {
         return false;
     }
 
-    public List<Evento> getEventos() {
+    public static List<Evento> getEventos() {
         return eventos;
     }
 }
