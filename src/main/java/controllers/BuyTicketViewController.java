@@ -98,7 +98,6 @@ public class BuyTicketViewController {
                 return;
             }
 
-
             String idEntrada = "ENT-" + System.currentTimeMillis();
             double precioBase = eventoSeleccionado.getPrecioBase();
             Entrada entrada = null;
