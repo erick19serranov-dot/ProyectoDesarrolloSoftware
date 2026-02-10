@@ -7,7 +7,7 @@ import java.util.List;
 
 public class eventoController {
 
-    private List<Evento> eventos;
+    private static List<Evento> eventos;
 
     public eventoController(){
     eventos = new ArrayList<>();
