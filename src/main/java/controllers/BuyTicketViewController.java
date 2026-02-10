@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class BuyTicketViewController {
 
-    private eventoController eventoCtrl = new eventoController();
+    private EventoController eventoCtrl = new EventoController();
     private Evento eventoSeleccionado;
 
     @FXML private ComboBox<Evento> comboEventos;

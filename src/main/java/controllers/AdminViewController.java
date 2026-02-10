@@ -5,19 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import models.Evento;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
 public class AdminViewController {
 
-    private eventoController eventoCtrl = new eventoController();
+    private EventoController eventoCtrl = new EventoController();
 
     @FXML private TextField txtIdEvento, txtNombre, txtFecha, txtPrecioBase, txtFilas, txtColumnas;
     @FXML private TextArea txtAreaEventos;

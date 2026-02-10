@@ -5,11 +5,11 @@ import models.Evento;
 import java.util.ArrayList;
 import java.util.List;
 
-public class eventoController {
+public class EventoController {
 
     private List<Evento> eventos;
 
-    public eventoController(){
+    public EventoController(){
     eventos = new ArrayList<>();
     }
 

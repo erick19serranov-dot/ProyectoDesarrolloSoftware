@@ -57,7 +57,7 @@ public class MainController {
     private void salir() {
 
         try {
-            persistenciaEventosController.guardarEventos(eventoController.getEventos());
+            persistenciaEventosController.guardarEventos(EventoController.getEventos());
             System.exit(0);
         } catch (IOException e) {
             mostrarError("Error al guardar los datos");
