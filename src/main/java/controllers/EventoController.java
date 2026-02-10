@@ -2,35 +2,23 @@ package controllers;
 
 import models.Evento;
 
-import javax.swing.JOptionPane;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventoController {
+public class eventoController {
 
     private List<Evento> eventos;
 
-    public EventoController() {
-        try {
-            eventos = PersistenciaEventosController.cargarEventos();
-        } catch (IOException | NumberFormatException e) {
-            eventos = new ArrayList<>();
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Error al cargar eventos.\nSe iniciará con la lista vacía.",
-                    "Error de carga",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
+    public eventoController(){
+    eventos = new ArrayList<>();
     }
 
-    public void crearEvento(String idEvento, String nombre, String fecha,
-                            double precioBase, int filas, int columnas) {
+    public void crearEvento(String idEvento, String nombre, String fecha, double precioBase, int filas, int columnas) {
 
         Evento nuevo = new Evento(idEvento, nombre, fecha, precioBase, filas, columnas);
         eventos.add(nuevo);
     }
+
 
     public boolean editarEvento(String idEvento, String nuevoNombre,
                                 String nuevaFecha, double nuevoPrecioBase) {
@@ -76,19 +64,6 @@ public class EventoController {
             return true;
         }
         return false;
-    }
-
-    public void guardarCambios() {
-        try {
-            PersistenciaEventosController.guardarEventos(eventos);
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Error al guardar eventos.",
-                    "Error de guardado",
-                    JOptionPane.ERROR_MESSAGE
-            );
-        }
     }
 
     public List<Evento> getEventos() {

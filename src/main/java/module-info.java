@@ -3,5 +3,10 @@ module com.mycompany.proyectoprogramado2026 {
     requires javafx.fxml;
 
     opens com.mycompany.proyectoprogramado2026 to javafx.fxml;
-    exports com.mycompany.proyectoprogramado2026;
+    opens controllers to javafx.fxml;
+    opens models to javafx.fxml;
+
+    exports controllers;
+    exports models;
+    
 }
