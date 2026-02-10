@@ -1,0 +1,49 @@
+.top-form{
+    -fx-background-color: linear-gradient(to bottom right, #177E83, #75DDE3);
+    -fx-border-color: #000;
+    -fx-border-width: 4px .4px .2px .4px;
+}
+.semi-top-form{
+    -fx-background-color: #efefef;
+    -fx-border-color: #000;
+    -fx-border-width: 2px .4px .8px .4px;
+}
+.shadow{
+    -fx-effect:dropshadow(three-pass-box, rgba(0,0,0,0.25), 3,0,0,0);
+}
+.user-pane{
+    -fx-background-color: #245B5E;
+    -fx-border-color: #70DBE0;
+    -fx-border-radius: 5px;
+}
+.tabpane{
+    -fx-background-color: #5BB9BE;
+    -fx-background-radius: 15px;
+    -fx-border-color: #70DBE0;
+    -fx-border-radius: 15px;
+    -fx-border-wight: 2px;
+}
+.nav-add-event{
+    -fx-background-color: linear-gradient(to right, #0C4977, #4296D4);
+    -fx-background-radius: 15px;
+    -fx-border-color: linear-gradient(to right, #4296D4, #0C4977);
+    -fx-border-radius: 15px;
+}
+.nav-manage-billboard{
+    -fx-background-color: linear-gradient(to right, #1C4395, #3B6FDD);
+    -fx-background-radius: 15px;
+    -fx-border-color: linear-gradient(to right, #3B6FDD, #1C4395);
+    -fx-border-radius: 15px;
+}
+.nav-manage-event{
+    -fx-background-color: linear-gradient(to right, #15338A, #3A71F9);
+    -fx-background-radius: 15px;
+    -fx-border-color: linear-gradient(to right, #3A71F9, #15338A);
+    -fx-border-radius: 15px;
+}
+.billing{
+    -fx-background-color: linear-gradient(to right, #142FA1, #2E53F2);
+    -fx-background-radius: 15px;
+    -fx-border-color: linear-gradient(to right, #2E53F2, #142FA1);
+    -fx-border-radius: 15px;
+}
