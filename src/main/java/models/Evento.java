@@ -52,6 +52,11 @@ public class Evento {
             }
         }
          entradasVendidas.clear();;
+
+    }
+
+    public void setAsientos(boolean[][] asientos) {
+        this.asientos = asientos;
     }
 
     public boolean estaOcupado(int fila, int columna){

@@ -13,11 +13,12 @@ public class EntradaGeneral extends Entrada {
 
     @Override
     public String generarDetalle(){
-        return  "==ENTRADA GENBERAL TICKET==\n" +
+        return  "==ENTRADA GENERAL TICKET==\n" +
                 "ID:" + idEntrada + "\n" +
                 "Cliente: " + nombreCliente + "\n" +
                 "Asiento: " + getAsientoTexto() + "\n" +
                 "Precio Base: " + precioBase + "\n" +
                 "Precio Final: " + calcularPrecioFinal() + "\n";
     }
+
 }

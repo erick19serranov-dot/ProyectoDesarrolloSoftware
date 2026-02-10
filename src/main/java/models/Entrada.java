@@ -37,7 +37,9 @@ public abstract class Entrada implements IImprimible {
     public double getPrecioBase() {
         return precioBase;
     }
-    public String getAsientoTexto(){
-        return "fila: " + fila + "columna: " + columna;
-    }
+
+public String getAsientoTexto(){
+    return "Fila: " + (fila + 1) + ", Columna: " + (columna + 1);
+}
+
 }
