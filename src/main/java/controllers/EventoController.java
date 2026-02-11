@@ -76,7 +76,6 @@ public class EventoController {
         try {
             PersistenciaEventosController.guardarEventos(eventos);
         } catch (IOException e) {
-            // No usamos JOptionPane en JavaFX
         }
     }
 
