@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
@@ -34,6 +43,7 @@
                                     </Label>
                                  </children>
                               </Pane>
+                              <Button layoutX="919.0" layoutY="18.0" mnemonicParsing="false" text="Regresar" />
                            </children>
                            <styleClass>
                               <String fx:value="shadow" />
@@ -53,7 +63,49 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <AnchorPane layoutX="43.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-event" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <AnchorPane layoutX="43.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-event" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                   <children>
+                                                      <Pane layoutX="16.0" layoutY="107.0" prefHeight="57.0" prefWidth="797.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="301.0" AnchorPane.leftAnchor="16.0" AnchorPane.rightAnchor="143.19999999999993" AnchorPane.topAnchor="107.0">
+                                                         <styleClass>
+                                                            <String fx:value="shadow" />
+                                                            <String fx:value="btn-pane" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Button layoutX="108.0" layoutY="14.0" mnemonicParsing="false" text="Agregar" />
+                                                            <Button layoutX="306.0" layoutY="14.0" mnemonicParsing="false" text="Cancelar" />
+                                                            <Button layoutX="452.0" layoutY="14.0" mnemonicParsing="false" text="Modificar" />
+                                                            <Button layoutX="580.0" layoutY="14.0" mnemonicParsing="false" text="Eliminar" />
+                                                            <Button layoutX="678.0" layoutY="14.0" mnemonicParsing="false" text="Publicar" />
+                                                         </children>
+                                                      </Pane>
+                                                      <TextField layoutX="17.0" layoutY="22.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del evento" />
+                                                      <DatePicker editable="true" layoutX="17.0" layoutY="67.0" prefHeight="30.0" prefWidth="150.0" promptText="Seleccione la fecha" />
+                                                      <TextField layoutX="514.0" layoutY="67.0" prefHeight="30.0" prefWidth="120.0" promptText="Introduzca el precio" />
+                                                      <ComboBox layoutX="658.0" layoutY="67.0" prefHeight="30.0" prefWidth="170.0" promptText="Seleccione la categoría" />
+                                                      <AnchorPane layoutX="832.0" layoutY="16.0" prefHeight="150.0" prefWidth="100.0" stylesheets="@../styles/adminview.css" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="16.0">
+                                                         <styleClass>
+                                                            <String fx:value="shadow" />
+                                                            <String fx:value="white-bg" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Button layoutX="24.0" layoutY="124.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" text="Importar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                            <ImageView fitHeight="110.0" fitWidth="99.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <TableView layoutX="16.0" layoutY="212.0" prefHeight="254.0" prefWidth="923.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0">
+                                                        <columns>
+                                                          <TableColumn editable="false" prefWidth="39.99999809265137" text="Id" />
+                                                          <TableColumn prefWidth="212.00003814697266" text="Nombre del evento" />
+                                                            <TableColumn minWidth="0.0" prefWidth="224.0" text="Descripción" />
+                                                            <TableColumn minWidth="0.0" prefWidth="111.19998168945312" text="Categoría" />
+                                                            <TableColumn prefWidth="115.199951171875" text="Precio de entrada" />
+                                                            <TableColumn minWidth="0.0" prefWidth="116.7999267578125" text="Fecha del evento" />
+                                                            <TableColumn prefWidth="104.80001220703127" text="Hora de evento" />
+                                                        </columns>
+                                                      </TableView>
+                                                      <ComboBox layoutX="186.0" layoutY="67.0" prefHeight="30.0" prefWidth="150.0" promptText="Seleccione hora" />
+                                                      <TextField layoutX="379.0" layoutY="22.0" prefHeight="30.0" prefWidth="450.0" promptText="Introduzca descripción" />
+                                                   </children></AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
@@ -62,7 +114,27 @@
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <AnchorPane layoutX="243.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-billboard" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <AnchorPane layoutX="243.0" layoutY="130.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-billboard" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                   <children>
+                                                      <Pane layoutX="697.0" layoutY="14.0" prefHeight="434.0" prefWidth="243.0" stylesheets="@../styles/adminview.css">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <TextArea editable="false" layoutX="22.0" layoutY="53.0" prefHeight="121.0" prefWidth="200.0" promptText="Descripcion" />
+                                                            <ToggleButton layoutX="152.0" layoutY="378.0" mnemonicParsing="false" text="Disponible" />
+                                                            <TextField editable="false" layoutX="47.0" layoutY="339.0" />
+                                                            <TextField editable="false" layoutX="48.0" layoutY="277.0" />
+                                                            <Label layoutX="73.0" layoutY="315.0" text="Precio de asientos" />
+                                                            <Label layoutX="60.0" layoutY="251.0" text="Asientos disponibles" />
+                                                            <Button layoutX="48.0" layoutY="378.0" mnemonicParsing="false" text="Gestionar" />
+                                                            <TextField editable="false" layoutX="40.0" layoutY="217.0" />
+                                                            <Label layoutX="81.0" layoutY="193.0" text="Fecha del evento" />
+                                                            <TextField editable="false" layoutX="47.0" layoutY="14.0" promptText="Nombre del evento" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children></AnchorPane>
                                              </children>
                                           </AnchorPane>
                                     </content>
@@ -71,7 +143,99 @@
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <AnchorPane layoutX="302.0" layoutY="174.0" prefHeight="200.0" prefWidth="200.0" styleClass="billing" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <AnchorPane layoutX="302.0" layoutY="174.0" prefHeight="200.0" prefWidth="200.0" styleClass="billing" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                                   <children>
+                                                      <AnchorPane layoutX="14.0" layoutY="44.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.topAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="136.0" layoutY="21.0" text="Entradas VIP" />
+                                                            <Label layoutX="218.0" layoutY="72.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="327.0" layoutY="44.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.topAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="114.0" layoutY="26.0" text="Entradas Estudiante" />
+                                                            <Label layoutX="259.0" layoutY="78.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="640.0" layoutY="44.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.topAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="134.0" layoutY="19.0" text="Entradas Regulares" />
+                                                            <Label layoutX="264.0" layoutY="89.0" prefHeight="18.0" prefWidth="0.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="14.0" layoutY="170.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="170.80000000000007">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="104.0" layoutY="14.0" text="Boletos Vendidos" />
+                                                            <Label layoutX="147.0" layoutY="63.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="327.0" layoutY="170.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="170.80000000000007">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="121.0" layoutY="17.0" text="Eventos Activos" />
+                                                            <Label layoutX="199.0" layoutY="61.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="640.0" layoutY="170.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="170.80000000000007">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="142.0" layoutY="12.0" text="Eventos totales" />
+                                                            <Label layoutX="231.0" layoutY="59.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="14.0" layoutY="296.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="79.0" layoutY="25.0" text="Ingresos por Conciertos" />
+                                                            <Label layoutX="150.0" layoutY="77.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="327.0" layoutY="296.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="41.0" layoutY="14.0" text="Ingresos por Obras de Teatro" />
+                                                            <Label layoutX="171.0" layoutY="62.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                      <AnchorPane layoutX="640.0" layoutY="296.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0">
+                                                         <styleClass>
+                                                            <String fx:value="white-bg" />
+                                                            <String fx:value="shadow" />
+                                                         </styleClass>
+                                                         <children>
+                                                            <Label layoutX="117.0" layoutY="15.0" text="Ingresos Totales" />
+                                                            <Label layoutX="210.0" layoutY="75.0" text="0" />
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children></AnchorPane>
                                              </children>
                                           </AnchorPane>
                                        </content>
