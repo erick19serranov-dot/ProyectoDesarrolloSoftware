@@ -49,15 +49,15 @@
                            <children>
                               <TabPane layoutX="14.0" layoutY="14.0" prefHeight="536.8000000000001" prefWidth="998.4000000000001" stylesheets="@../styles/adminview.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                                 <tabs>
-                                  <Tab text="Agregar Evento">
-                                    <content>
-                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" stylesheets="@../styles/adminview.css">
+                                    <Tab text="Gestionar eventos">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                              <children>
-                                                <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-add-event" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                                                <AnchorPane layoutX="43.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-event" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
                                              </children>
                                           </AnchorPane>
-                                    </content>
-                                  </Tab>
+                                       </content>
+                                    </Tab>
                                   <Tab text="Gestionar Cartelera">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
@@ -67,15 +67,6 @@
                                           </AnchorPane>
                                     </content>
                                   </Tab>
-                                    <Tab text="Gestionar evento">
-                                       <content>
-                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <AnchorPane layoutX="43.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" styleClass="nav-manage-event" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                                             </children>
-                                          </AnchorPane>
-                                       </content>
-                                    </Tab>
                                     <Tab text="Facturación">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
