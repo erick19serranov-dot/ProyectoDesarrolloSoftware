@@ -3,10 +3,13 @@
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
@@ -17,7 +20,7 @@
          <children>
             <BorderPane layoutX="69.0" layoutY="117.0" prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <left>
-                  <AnchorPane prefHeight="550.0" prefWidth="202.0" styleClass="nav-form" stylesheets="@../styles/SystemView.css" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="550.0" prefWidth="202.0" styleClass="nav-form" stylesheets="@../styles/billboardview.css" BorderPane.alignment="CENTER">
                      <children>
                         <ImageView disable="true" fitHeight="190.0" fitWidth="200.0" layoutX="7.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -30,17 +33,17 @@
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btn_Cartelera_Main" layoutX="11.0" layoutY="335.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/SystemView.css" text="Cartelera" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Cartelera_Main" layoutX="11.0" layoutY="335.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Cartelera" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_Entradas_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/SystemView.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Entradas_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_Admin_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/SystemView.css" text="Administracion" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Admin_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Administracion" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
@@ -51,11 +54,22 @@
                <center>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
-                        <AnchorPane layoutX="8.0" layoutY="10.0" prefHeight="581.0" prefWidth="782.0" stylesheets="@../styles/SystemView.css">
+                        <AnchorPane layoutX="8.0" layoutY="10.0" prefHeight="581.0" prefWidth="782.0" stylesheets="@../styles/billboardview.css">
                            <styleClass>
                               <String fx:value="white-bg" />
                               <String fx:value="shadow" />
                            </styleClass>
+                           <children>
+                              <ScrollPane fx:id="sc_billboard_main" layoutX="14.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                 <content>
+                                    <GridPane fx:id="gp_billboard_main" prefHeight="164.0" prefWidth="210.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                      </columnConstraints>
+                                    </GridPane>
+                                 </content>
+                              </ScrollPane>
+                           </children>
                         </AnchorPane>
                      </children>
                   </AnchorPane>
