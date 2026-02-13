@@ -93,7 +93,7 @@
 .table-view .column-header .label{
     -fx-text-fill: #fff;
 }
-.btn-mange-event{
+.btn-manage-event{
     -fx-padding: 8 15 15 15;
     -fx-background-insets: 0,0 0 5 0,0 0 6 0,0 0 7 0;
     -fx-background-radius: 8;
@@ -104,7 +104,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 1.1em;
 }
-.btn-mange-event:hover{
+.btn-manage-event:hover{
     -fx-background-color: linear-gradient(from 0% 93% to 0% 100%, #156067 0%, #2F848C 100%), 
         #135574, #4586A5, 
         radial-gradient(center 50% 50%, radius 100%, #1CA57C, #3BD0DD);
@@ -154,4 +154,3 @@
     -fx-border-color: linear-gradient(to right, #5EA8D9, #3379A7);
     -fx-border-radius: 15px;
 }
-

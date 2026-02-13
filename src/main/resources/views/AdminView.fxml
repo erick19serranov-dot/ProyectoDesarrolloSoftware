@@ -49,7 +49,7 @@
                                                 </Label>
                                             </children>
                                         </Pane>
-                                        <Button layoutX="893.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Regresar" textFill="WHITE" AnchorPane.bottomAnchor="7.600000000000001" AnchorPane.rightAnchor="20.600000000000094" AnchorPane.topAnchor="9.600000000000001" />
+                                        <Button layoutX="893.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Regresar" textFill="WHITE" AnchorPane.bottomAnchor="7.600000000000001" AnchorPane.rightAnchor="20.600000000000094" AnchorPane.topAnchor="9.600000000000001" />
                                     </children>
                                     <styleClass>
                                         <String fx:value="shadow" />
@@ -77,36 +77,36 @@
                                                                                 <String fx:value="btn-pane" />
                                                                             </styleClass>
                                                                             <children>
-                                                                                <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Agregar" textFill="WHITE" />
-                                                                                <Button layoutX="166.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Cancelar" textFill="WHITE" />
-                                                                                <Button layoutX="347.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Modificar" textFill="WHITE" />
-                                                                                <Button layoutX="525.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Eliminar" textFill="WHITE" />
-                                                                                <Button layoutX="688.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Publicar" textFill="WHITE" />
+                                                                                <Button fx:id="btn_add_event_manage" layoutX="14.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Agregar" textFill="WHITE" />
+                                                                                <Button fx:id="btn_cancel_event_manage" layoutX="166.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Cancelar" textFill="WHITE" />
+                                                                                <Button fx:id="btn_update_event_manage" layoutX="347.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Modificar" textFill="WHITE" />
+                                                                                <Button fx:id="btn_delete_event_manage" layoutX="525.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Eliminar" textFill="WHITE" />
+                                                                                <Button fx:id="btn_post_event_manage" layoutX="688.0" layoutY="10.0" mnemonicParsing="false" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Publicar" textFill="WHITE" />
                                                                             </children>
                                                                         </Pane>
-                                                                        <TextField layoutX="17.0" layoutY="22.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del evento" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
-                                                                        <DatePicker editable="true" layoutX="17.0" layoutY="67.0" prefHeight="30.0" prefWidth="138.0" promptText="Seleccione fecha" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
-                                                                        <TextField layoutX="486.0" layoutY="67.0" prefHeight="30.0" prefWidth="130.0" promptText="Introduzca precio" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
-                                                                        <ComboBox layoutX="638.0" layoutY="67.0" prefHeight="30.0" prefWidth="170.0" promptText="Seleccione la categoría" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
-                                                                        <AnchorPane layoutX="832.0" layoutY="16.0" prefHeight="150.0" prefWidth="100.0" stylesheets="@../styles/adminview.css" AnchorPane.leftAnchor="832.0" AnchorPane.topAnchor="16.0">
+                                                                        <TextField fx:id="txt_name_event_manage" layoutX="17.0" layoutY="22.0" prefHeight="30.0" prefWidth="350.0" promptText="Nombre del evento" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                                        <DatePicker fx:id="date_event_manage" editable="true" layoutX="17.0" layoutY="67.0" prefHeight="30.0" prefWidth="138.0" promptText="Seleccione fecha" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                                        <TextField fx:id="txt_price_event_manage" layoutX="486.0" layoutY="67.0" prefHeight="30.0" prefWidth="130.0" promptText="Introduzca precio" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                                        <ComboBox fx:id="cmb_category_event_manage" layoutX="638.0" layoutY="67.0" prefHeight="30.0" prefWidth="170.0" promptText="Seleccione la categoría" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                                        <AnchorPane fx:id="image_pane" layoutX="832.0" layoutY="16.0" prefHeight="150.0" prefWidth="100.0" stylesheets="@../styles/adminview.css" AnchorPane.leftAnchor="832.0" AnchorPane.topAnchor="16.0">
                                                                             <children>
-                                                                                <Button layoutX="24.0" layoutY="124.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="btn-mange-event" stylesheets="@../styles/adminview.css" text="Importar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                                                                <ImageView fitHeight="110.0" fitWidth="99.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                                                <Button fx:id="btn_import_image_event_manage" layoutX="24.0" layoutY="124.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="100.0" styleClass="btn-manage-event" stylesheets="@../styles/adminview.css" text="Importar" textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                                                <ImageView fx:id="image_event_manage" fitHeight="110.0" fitWidth="99.0" layoutX="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                                                             </children>
                                                          <styleClass>
                                                             <String fx:value="shadow" />
                                                             <String fx:value="white-bg" />
                                                          </styleClass>
                                                                         </AnchorPane>
-                                                                        <TableView editable="true" layoutX="16.0" layoutY="212.0" prefHeight="254.0" prefWidth="923.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="186.40000000000006">
+                                                                        <TableView fx:id="table_manage_event" editable="true" layoutX="16.0" layoutY="212.0" prefHeight="254.0" prefWidth="923.0" stylesheets="@../styles/adminview.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="186.40000000000006">
                                                                             <columns>
-                                                                                <TableColumn editable="false" prefWidth="39.99999809265137" text="Id" />
-                                                                                <TableColumn prefWidth="212.00003814697266" text="Nombre del evento" />
-                                                                                <TableColumn minWidth="0.0" prefWidth="224.0" text="Descripción" />
-                                                                                <TableColumn minWidth="0.0" prefWidth="111.19998168945312" text="Categoría" />
-                                                                                <TableColumn prefWidth="115.199951171875" text="Precio de entrada" />
-                                                                                <TableColumn minWidth="0.0" prefWidth="116.7999267578125" text="Fecha del evento" />
-                                                                                <TableColumn prefWidth="104.80001220703127" text="Hora de evento" />
+                                                                                <TableColumn fx:id="tbl_col_id_manage_event" editable="false" prefWidth="39.99999809265137" text="Id" />
+                                                                                <TableColumn fx:id="tbl_col_namemanage_event" prefWidth="212.00003814697266" text="Nombre del evento" />
+                                                                                <TableColumn fx:id="tbl_col_description_manage_event" minWidth="0.0" prefWidth="224.0" text="Descripción" />
+                                                                                <TableColumn fx:id="tbl_col_category_manage_event" minWidth="0.0" prefWidth="111.19998168945312" text="Categoría" />
+                                                                                <TableColumn fx:id="tbl_col_price_manage_event" prefWidth="115.199951171875" text="Precio de entrada" />
+                                                                                <TableColumn fx:id="tbl_col_date_manage_event" minWidth="0.0" prefWidth="116.7999267578125" text="Fecha del evento" />
+                                                                                <TableColumn fx:id="tbl_col_time_manage_event" prefWidth="104.80001220703127" text="Hora de evento" />
                                                                             </columns>
                                                          <opaqueInsets>
                                                             <Insets />
@@ -122,10 +122,10 @@
                                                             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                          </columnResizePolicy>
                                                                         </TableView>
-                                                                        <TextField layoutX="379.0" layoutY="22.0" prefHeight="30.0" prefWidth="430.0" promptText="Introduzca descripción" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
-                                                      <Spinner layoutX="230.0" layoutY="69.0" prefHeight="26.0" prefWidth="66.0" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                                        <TextField fx:id="txt_description_event_manage" layoutX="379.0" layoutY="22.0" prefHeight="30.0" prefWidth="430.0" promptText="Introduzca descripción" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                      <Spinner fx:id="sp_hour_event_manage" layoutX="230.0" layoutY="69.0" prefHeight="26.0" prefWidth="66.0" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
                                                       <Label layoutX="178.0" layoutY="74.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="Hora: " />
-                                                      <Spinner layoutX="381.0" layoutY="70.0" prefHeight="26.0" prefWidth="72.0" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
+                                                      <Spinner fx:id="sp_minutes_event_manage" layoutX="381.0" layoutY="70.0" prefHeight="26.0" prefWidth="72.0" styleClass="txt-manage-event" stylesheets="@../styles/adminview.css" />
                                                       <Label layoutX="313.0" layoutY="74.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="Minutos:" />
                                                                     </children></AnchorPane>
                                                             </children>
@@ -144,42 +144,42 @@
                                                                                 <String fx:value="shadow" />
                                                                             </styleClass>
                                                                             <children>
-                                                                                <ToggleButton layoutX="130.0" layoutY="377.0" mnemonicParsing="false" stylesheets="@../styles/adminview.css" text="Disponible" textFill="WHITE">
+                                                                                <ToggleButton fx:id="btn_available_billboard" layoutX="130.0" layoutY="377.0" mnemonicParsing="false" stylesheets="@../styles/adminview.css" text="Disponible" textFill="WHITE">
                                                                <styleClass>
                                                                   <String fx:value="shadow" />
                                                                   <String fx:value="btn-manage-billboard" />
                                                                </styleClass></ToggleButton>
-                                                                                <Button layoutX="17.0" layoutY="377.0" mnemonicParsing="false" stylesheets="@../styles/adminview.css" text="Gestionar" textFill="WHITE">
+                                                                                <Button fx:id="btn_manage_event_billboard" layoutX="17.0" layoutY="377.0" mnemonicParsing="false" stylesheets="@../styles/adminview.css" text="Gestionar" textFill="WHITE">
                                                                <styleClass>
                                                                   <String fx:value="shadow" />
                                                                   <String fx:value="btn-manage-billboard" />
                                                                </styleClass></Button>
                                                             <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="8.0" prefHeight="364.0" prefWidth="231.0">
                                                                <children>
-                                                                                      <TextField editable="false" promptText="Nombre del evento" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
+                                                                                      <TextField fx:id="txt_name_manage_billboard" editable="false" promptText="Nombre del evento" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
                                                                   <Label text="Label" visible="false" />
-                                                                                      <TextArea editable="false" prefHeight="121.0" prefWidth="221.0" promptText="Descripcion" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
+                                                                                      <TextArea fx:id="txt_description_manage_billboard" editable="false" prefHeight="121.0" prefWidth="221.0" promptText="Descripcion" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
                                                                   <Label text="Label" visible="false" />
                                                                                       <Label text="Fecha del evento" textFill="WHITE">
                                                                      <font>
                                                                         <Font name="Tahoma" size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                                      <TextField editable="false" promptText="Fecha del evento" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
+                                                                                      <TextField fx:id="txt_date_manage_billboard" editable="false" promptText="Fecha del evento" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
                                                                   <Label text="Label" visible="false" />
                                                                   <Label text="Asientos Disponibles" textFill="WHITE">
                                                                      <font>
                                                                         <Font name="Tahoma" size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                                      <TextField editable="false" promptText="Asientos Disponibles" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
+                                                                                      <TextField fx:id="txt_seats_manage_billboard" editable="false" promptText="Asientos Disponibles" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
                                                                   <Label text="Label" visible="false" />
                                                                   <Label text="Precio de Asientos" textFill="WHITE">
                                                                      <font>
                                                                         <Font name="Tahoma" size="14.0" />
                                                                      </font>
                                                                   </Label>
-                                                                                      <TextField editable="false" promptText="Precio de Asientos" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
+                                                                                      <TextField fx:id="txt_price_manage_billboard" editable="false" promptText="Precio de Asientos" styleClass="txt-manage-billboard" stylesheets="@../styles/adminview.css" />
                                                                </children>
                                                             </VBox>
                                                                             </children>
@@ -214,7 +214,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                                                <Label layoutX="145.0" layoutY="66.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                                                <Label fx:id="number_tickets_vip_billboard" layoutX="145.0" layoutY="66.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -230,7 +230,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                                                <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                                                <Label fx:id="number_tickets_student_billboard" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -246,7 +246,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                                                <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                                                <Label fx:id="number_tickets_regular_billboard" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -258,7 +258,7 @@
                                                                         </AnchorPane>
                                                                         <AnchorPane layoutX="14.0" layoutY="168.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css">
                                                                             <children>
-                                                                                <Label layoutX="79.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Boletos Vendidos" textFill="WHITE">
+                                                                                <Label fx:id="number_tickets_sold_billboard" layoutX="79.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Boletos Vendidos" textFill="WHITE">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -275,7 +275,7 @@
                                                                         </AnchorPane>
                                                                         <AnchorPane layoutX="327.0" layoutY="168.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css">
                                                                             <children>
-                                                                                <Label layoutX="79.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Eventos Activos" textFill="WHITE">
+                                                                                <Label fx:id="number_event_active_billboard" layoutX="79.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Eventos Activos" textFill="WHITE">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -292,7 +292,7 @@
                                                                         </AnchorPane>
                                                                         <AnchorPane layoutX="640.0" layoutY="168.0" prefHeight="120.0" prefWidth="300.0" stylesheets="@../styles/adminview.css">
                                                                             <children>
-                                                                                <Label layoutX="80.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Eventos totales" textFill="WHITE">
+                                                                                <Label fx:id="number_total_event_billboard" layoutX="80.0" layoutY="14.0" stylesheets="@../styles/adminview.css" text="Eventos totales" textFill="WHITE">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
@@ -313,7 +313,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="number_income_concerts_billboard" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>
@@ -330,7 +330,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="154.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="number_income_plays_billboard" layoutX="154.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>
@@ -347,7 +347,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="number_total_income_billboard" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>
