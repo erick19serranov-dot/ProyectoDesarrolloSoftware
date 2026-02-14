@@ -2,6 +2,9 @@
     -fx-background-color: linear-gradient(to right, #245150, #45BEBC);
     -fx-background-radius: 8px;
 }
+.nav-form-seats{
+    -fx-background-color: linear-gradient(to right, #156067, #2F848C);
+}
 .nav-btn{
     -fx-background-color: transparent;
     -fx-cursor: hand;
