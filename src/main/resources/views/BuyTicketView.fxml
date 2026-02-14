@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -15,14 +16,15 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <AnchorPane prefHeight="700.0" prefWidth="1000.0">
+        <AnchorPane prefHeight="800.0" prefWidth="1000.0">
             <children>
                 <BorderPane prefHeight="600.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <left>
@@ -76,12 +78,12 @@
                                  <children>
                                     <ScrollPane layoutX="-1.0" prefHeight="150.0" prefWidth="254.0" styleClass="nav-info-event" stylesheets="@../styles/buyticketview.css">
                                        <content>
-                                          <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="239.0" styleClass="nav-info-event" stylesheets="@../styles/buyticketview.css">
+                                          <VBox alignment="TOP_CENTER" prefHeight="336.0" prefWidth="237.0" styleClass="nav-info-event" stylesheets="@../styles/buyticketview.css">
                                              <children>
                                                 <Label text="Label" visible="false" />
                                                 <TextField editable="false" promptText="Nombre del evento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" />
                                                 <Label text="Label" visible="false" />
-                                                <TextArea editable="false" prefHeight="121.0" prefWidth="221.0" promptText="Descripcion" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" />
+                                                <TextArea editable="false" promptText="Descripcion" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" />
                                                 <Label text="Label" visible="false" />
                                                 <Label text="Fecha del evento" textAlignment="CENTER" textFill="WHITE">
                                                    <font>
@@ -116,32 +118,28 @@
                                     </ScrollPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="10.0" layoutY="171.0" prefHeight="90.0" prefWidth="756.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="171.0">
+                              <AnchorPane layoutX="10.0" layoutY="171.0" prefHeight="50.0" prefWidth="756.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="171.0">
                                  <children>
-                                    <TextField layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="204.0" promptText="Buscar evento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="10.0">
+                                    <TextField layoutX="23.0" layoutY="11.0" prefHeight="27.0" prefWidth="204.0" promptText="Buscar evento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="11.0">
                                        <font>
                                           <Font name="Tahoma" size="12.0" />
                                        </font>
                                     </TextField>
-                                    <Button layoutX="378.0" layoutY="48.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Cancelar" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="314.0" />
-                                    <Button layoutX="470.0" layoutY="48.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Agregar" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="214.0" />
-                                    <Button layoutX="561.0" layoutY="73.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Eliminar" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="114.0" />
-                                    <Button layoutX="659.0" layoutY="73.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Comprar" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="14.0" />
-                                    <ComboBox editable="true" layoutX="227.0" layoutY="14.0" prefHeight="27.0" prefWidth="210.0" promptText="Seleccione tipo de asiento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="215.0" AnchorPane.topAnchor="10.0" />
-                                    <TextField editable="false" layoutX="441.0" layoutY="14.0" prefHeight="27.0" prefWidth="160.0" promptText="Precio unitario asiento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="430.0" AnchorPane.topAnchor="10.0" />
-                                    <TextField editable="false" layoutX="613.0" layoutY="14.0" prefHeight="27.0" prefWidth="113.0" promptText="Total a pagar" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="600.0" AnchorPane.topAnchor="10.0" />
+                                    <ComboBox editable="true" layoutX="234.0" layoutY="11.0" prefHeight="27.0" prefWidth="210.0" promptText="Seleccione tipo de asiento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="234.0" AnchorPane.topAnchor="11.0" />
+                                    <TextField editable="false" layoutX="449.0" layoutY="11.0" prefHeight="27.0" prefWidth="160.0" promptText="Precio unitario asiento" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="449.0" AnchorPane.topAnchor="11.0" />
+                                    <TextField editable="false" layoutX="619.0" layoutY="11.0" prefHeight="27.0" prefWidth="113.0" promptText="Total a pagar" styleClass="txt-buy-tickets" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="619.0" AnchorPane.topAnchor="11.0" />
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="508.0" layoutY="438.4" prefHeight="131.0" prefWidth="756.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="537.6000000000001">
+                              <AnchorPane layoutX="508.0" layoutY="587.2" prefHeight="182.0" prefWidth="756.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="587.0">
                                  <children>
-                                    <Label alignment="TOP_CENTER" layoutX="11.2" layoutY="7.2" prefHeight="26.0" prefWidth="734.0" text="Lista de Compra" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                                    <Label alignment="TOP_CENTER" layoutX="11.2" layoutY="7.2" prefHeight="26.0" prefWidth="735.0" text="Lista de Compra" textFill="WHITE" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
                                        <font>
                                           <Font name="Tahoma Bold" size="24.0" />
                                        </font>
                                     </Label>
                                     <ScrollPane layoutX="6.4" layoutY="56.0" prefHeight="178.0" prefWidth="264.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.40000000000006">
                                        <content>
-                                          <TableView prefHeight="258.0" prefWidth="867.0" stylesheets="@../styles/buyticketview.css">
+                                          <TableView stylesheets="@../styles/buyticketview.css">
                                              <columns>
                                                 <TableColumn editable="false" prefWidth="150.0" text="Fecha y hora" />
                                                 <TableColumn editable="false" prefWidth="300.0" text="Evento" />
@@ -159,7 +157,56 @@
                                     </ScrollPane>
                                  </children>
                               </AnchorPane>
-                              <AnchorPane layoutX="11.0" layoutY="266.4" prefHeight="264.0" prefWidth="756.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="266.0" />
+                              <AnchorPane layoutX="11.0" layoutY="226.4" prefHeight="350.0" prefWidth="656.0" styleClass="nav-form" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="226.0">
+                                 <children>
+                                    <VBox layoutX="260.0" layoutY="-31.0" prefHeight="264.0" prefWidth="756.0000000000001" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <AnchorPane prefHeight="38.0" prefWidth="656.0">
+                                             <children>
+                                                <Label alignment="TOP_CENTER" layoutX="284.0" layoutY="7.0" text="Escenario" textFill="WHITE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                                                   <font>
+                                                      <Font name="Tahoma Bold" size="18.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                          <AnchorPane prefHeight="274.0" prefWidth="656.0">
+                                             <children>
+                                                <HBox layoutX="203.0" layoutY="50.0" prefHeight="302.0" prefWidth="651.0" AnchorPane.bottomAnchor="-28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                                                   <children>
+                                                      <AnchorPane prefHeight="215.0" prefWidth="36.0" styleClass="nav-form-seats" stylesheets="@../styles/buyticketview.css">
+                                                         <HBox.margin>
+                                                            <Insets left="10.0" />
+                                                         </HBox.margin>
+                                                      </AnchorPane>
+                                                      <AnchorPane prefHeight="270.0" prefWidth="617.0" stylesheets="@../styles/buyticketview.css">
+                                                         <children>
+                                                            <GridPane layoutX="14.0" layoutY="14.0" prefHeight="92.0" prefWidth="164.0">
+                                                              <columnConstraints>
+                                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                              </columnConstraints>
+                                                            </GridPane>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </AnchorPane>
+                                       </children>
+                                    </VBox>
+                                 </children></AnchorPane>
+                              <AnchorPane layoutX="671.0" layoutY="227.0" prefHeight="349.0" prefWidth="94.0" stylesheets="@../styles/buyticketview.css" AnchorPane.leftAnchor="671.0" AnchorPane.topAnchor="227.0">
+                                 <styleClass>
+                                    <String fx:value="shadow" />
+                                    <String fx:value="nav-form" />
+                                 </styleClass>
+                                 <children>
+                                    <Button layoutX="5.0" layoutY="240.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Comprar" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="4.599999999999994" AnchorPane.topAnchor="240.0" />
+                                    <Button layoutX="5.0" layoutY="180.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Eliminar" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="4.599999999999994" AnchorPane.topAnchor="180.0" />
+                                    <Button layoutX="5.0" layoutY="120.0" mnemonicParsing="false" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Agregar" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="4.599999999999994" AnchorPane.topAnchor="120.0" />
+                                    <Button layoutX="5.0" layoutY="67.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="86.0" styleClass="btn-buy-tickets" stylesheets="@../styles/buyticketview.css" text="Cancelar" textFill="WHITE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="4.599999999999994" AnchorPane.topAnchor="67.0" />
+                                 </children>
+                              </AnchorPane>
                            </children>
                                 </AnchorPane>
                             </children>
