@@ -9,12 +9,12 @@ import javafx.scene.shape.Rectangle;
 import models.*;
 import java.util.Optional;
 
-public class BuyTicketViewController {
+public class BuyTicketViewC {
 
-    private EventoController eventoCtrl = new EventoController();
-    private Evento eventoSeleccionado;
+    private EventoC eventoCtrl = new EventoC();
+    private EventoC eventoSeleccionado;
 
-    @FXML private ComboBox<Evento> comboEventos;
+    @FXML private ComboBox<EventoC> comboEventos;
     @FXML private GridPane gridAsientos;
     @FXML private Label lblNombreEvento, lblFecha, lblPrecioBase;
     @FXML private TextField txtNombreCliente;

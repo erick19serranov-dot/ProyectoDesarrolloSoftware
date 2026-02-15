@@ -9,13 +9,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="155.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="215.0" prefWidth="155.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.EventCardController">
    <children>
       <VBox layoutX="36.0" prefHeight="200.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="60.0" prefWidth="150.0" stylesheets="@../styles/eventcardview.css">
                <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.6" layoutY="1.6" prefHeight="25.0" prefWidth="149.0" text="Nombre del evento" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
+                  <Label fx:id="txt_name_event_card" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.6" layoutY="1.6" prefHeight="25.0" prefWidth="149.0" text="Nombre del evento" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="Tahoma" size="12.0" />
                      </font>
@@ -37,7 +37,7 @@
             </AnchorPane>
             <AnchorPane prefHeight="46.0" prefWidth="150.0" stylesheets="@../styles/eventcardview.css">
                <children>
-                  <Button layoutX="49.0" layoutY="9.0" mnemonicParsing="false" prefHeight="27.2" prefWidth="150.4" styleClass="btn-event_card" stylesheets="@../styles/eventcardview.css" text="Seleccionar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <Button fx:id="btn_selectCard" layoutX="49.0" layoutY="9.0" mnemonicParsing="false" onAction="#setCard" prefHeight="27.2" prefWidth="150.4" styleClass="btn-event_card" stylesheets="@../styles/eventcardview.css" text="Seleccionar" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LoginAdminController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -50,12 +49,12 @@
                               </Pane>
                               <Pane layoutX="27.0" layoutY="80.0" prefHeight="165.0" prefWidth="337.0" styleClass="nav-login" stylesheets="@../styles/loginadminview.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
                                  <children>
-                                    <TextField layoutX="68.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" promptText="Usuario" styleClass="textField" stylesheets="@../styles/loginadminview.css">
+                                    <TextField fx:id="txt_username_admin" layoutX="68.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" promptText="Usuario" styleClass="textField" stylesheets="@../styles/loginadminview.css">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>
                                     </TextField>
-                                    <Button layoutX="68.0" layoutY="105.0" mnemonicParsing="false" onAction="#onActionTextIniciarSesión" prefHeight="40.0" prefWidth="200.0" stylesheets="@../styles/loginadminview.css" text="Iniciar Sesión">
+                                    <Button fx:id="btn_login_admin" layoutX="68.0" layoutY="105.0" mnemonicParsing="false" onAction="#MostrarAdmin" prefHeight="40.0" prefWidth="200.0" stylesheets="@../styles/loginadminview.css" text="Iniciar Sesión">
                                        <font>
                                           <Font name="Tahoma Bold" size="18.0" />
                                        </font>
@@ -64,7 +63,7 @@
                                           <String fx:value="login-btn" />
                                        </styleClass>
                                     </Button>
-                                    <PasswordField layoutX="68.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña" styleClass="textField" stylesheets="@../styles/loginadminview.css">
+                                    <PasswordField fx:id="txt_password_admin" layoutX="68.0" layoutY="60.0" prefHeight="30.0" prefWidth="200.0" promptText="Contraseña" styleClass="textField" stylesheets="@../styles/loginadminview.css">
                                        <font>
                                           <Font name="Arial" size="14.0" />
                                        </font>

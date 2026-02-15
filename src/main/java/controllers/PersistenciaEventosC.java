@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersistenciaEventosController {
+public class PersistenciaEventosC {
 
     private static final String ARCHIVO_EVENTOS = "eventos.txt";
 

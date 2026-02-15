@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.BillboardViewController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -33,17 +33,17 @@
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btn_Cartelera_Main" layoutX="11.0" layoutY="335.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Cartelera" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Cartelera_Main" layoutX="11.0" layoutY="335.0" mnemonicParsing="false" onAction="#MostrarCartelera" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Cartelera" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_Entradas_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Entradas_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" onAction="#MostrarCompraEntradas" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>
                         </Button>
-                        <Button fx:id="btn_Admin_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Administracion" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
+                        <Button fx:id="btn_Admin_Main" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" onAction="#MostrarLoginAdmin" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/billboardview.css" text="Administracion" AnchorPane.bottomAnchor="115.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10">
                            <font>
                               <Font name="Tahoma Bold" size="14.0" />
                            </font>

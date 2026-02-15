@@ -9,9 +9,9 @@ import models.Evento;
 import java.io.IOException;
 import java.util.Optional;
 
-public class AdminViewController {
+public class AdminViewC {
 
-    private EventoController eventoCtrl = new EventoController();
+    private Evento eventoCtrl = new Evento();
 
     @FXML private TextField txtIdEvento, txtNombre, txtFecha, txtPrecioBase, txtFilas, txtColumnas;
     @FXML private TextArea txtAreaEventos;
@@ -277,7 +277,7 @@ public class AdminViewController {
     @FXML
     private void exportarEventos() {
         try {
-            PersistenciaEventosController.guardarEventos(eventoCtrl.getEventos());
+            PersistenciaEventosC.guardarEventos(eventoCtrl.getEventos());
             mostrarAlerta("Éxito", "Eventos exportados correctamente", Alert.AlertType.INFORMATION);
         } catch (IOException e) {
             mostrarAlerta("Error", "Error al exportar eventos: " + e.getMessage(), Alert.AlertType.ERROR);

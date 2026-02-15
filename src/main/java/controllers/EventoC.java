@@ -7,13 +7,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventoController {
+public class EventoC {
 
     private List<Evento> eventos;
 
-    public EventoController() {
+    public EventoC() {
         try {
-            eventos = PersistenciaEventosController.cargarEventos();
+            eventos = PersistenciaEventosC.cargarEventos();
         } catch (IOException | NumberFormatException e) {
             eventos = new ArrayList<>();
         }
@@ -74,7 +74,7 @@ public class EventoController {
 
     public void guardarCambios() {
         try {
-            PersistenciaEventosController.guardarEventos(eventos);
+            PersistenciaEventosC.guardarEventos(eventos);
         } catch (IOException e) {
         }
     }

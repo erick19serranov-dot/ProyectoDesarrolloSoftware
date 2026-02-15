@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class MainController {
 
-   private static EventoController eventoController = new EventoController();
+   private static EventoC eventoController = new EventoC();
 
 
     @FXML
@@ -60,7 +60,7 @@ public class MainController {
     private void salir() {
 
         try {
-            PersistenciaEventosController.guardarEventos(eventoController.getEventos());
+            PersistenciaEventosC.guardarEventos(eventoController.getEventos());
             System.exit(0);
         } catch (IOException e) {
             mostrarError("Error al guardar los datos");
@@ -74,7 +74,7 @@ public class MainController {
         alert.showAndWait();
     }
 
-    public static EventoController getEventoController() {
+    public static EventoC getEventoController() {
         return eventoController;
     }
 }
