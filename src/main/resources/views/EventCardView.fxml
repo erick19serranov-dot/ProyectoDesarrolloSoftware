@@ -15,7 +15,7 @@
          <children>
             <AnchorPane prefHeight="60.0" prefWidth="150.0" stylesheets="@../styles/eventcardview.css">
                <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.6" layoutY="1.6" prefHeight="25.0" prefWidth="149.0" text="Nombre del evento" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="-8.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="1.0">
+                  <Label alignment="TOP_CENTER" contentDisplay="TOP" layoutX="1.6" layoutY="1.6" prefHeight="25.0" prefWidth="149.0" text="Nombre del evento" textAlignment="CENTER" wrapText="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="Tahoma" size="12.0" />
                      </font>

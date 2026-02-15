@@ -62,3 +62,22 @@
 .nav-info-event{
     -fx-background-color: linear-gradient(to right, #186D5C, #269B83);
 }
+.table-view{
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: linear-gradient(to bottom right, #125B85, #317FAB);
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+}
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(to bottom right, #1E6380, #38A8C3);
+    -fx-border-radius: 5px 5px 0 0;
+    -fx-background-insets: 0 0 0 0;
+}
+.table-view .column-header, .filter{
+    -fx-background-color: transparent;
+    -fx-size: 30px;
+}
+.table-view .column-header .label{
+    -fx-text-fill: #fff;
+}
