@@ -133,7 +133,7 @@ public class AdminViewC {
                     }
 
                     boolean editado = eventoCtrl.editarEvento(
-                            evento.getIdEvento(),
+                            evento.getId(),
                             nuevoNombre,
                             nuevaFecha,
                             nuevoPrecio
@@ -167,7 +167,7 @@ public class AdminViewC {
 
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                eventoCtrl.eliminarEvento(seleccionado.getIdEvento());
+                eventoCtrl.eliminarEvento(seleccionado.getId());
                 cargarEventos();
                 mostrarAlerta("Éxito", "Evento eliminado correctamente", Alert.AlertType.INFORMATION);
             }
@@ -180,7 +180,7 @@ public class AdminViewC {
     private void mostrarRecaudacion() {
         Evento seleccionado = tablaEventos.getSelectionModel().getSelectedItem();
         if (seleccionado != null) {
-            double recaudacion = eventoCtrl.calcularRecaudacionEvento(seleccionado.getIdEvento());
+            double recaudacion = eventoCtrl.calcularRecaudacionEvento(seleccionado.getId());
             mostrarAlerta("Recaudación",
                     "Recaudación total para '" + seleccionado.getNombre() + "': $" + recaudacion,
                     Alert.AlertType.INFORMATION);
@@ -201,7 +201,7 @@ public class AdminViewC {
 
             Optional<ButtonType> resultado = confirmacion.showAndWait();
             if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-                eventoCtrl.reiniciarSalaEvento(seleccionado.getIdEvento());
+                eventoCtrl.reiniciarSalaEvento(seleccionado.getId());
                 mostrarAlerta("Éxito", "Sala reiniciada correctamente", Alert.AlertType.INFORMATION);
             }
         } else {
@@ -218,7 +218,7 @@ public class AdminViewC {
 
         if (colId == null) {
             colId = new TableColumn<>("ID");
-            colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getIdEvento()));
+            colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
 
             colNombre = new TableColumn<>("Nombre");
             colNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));

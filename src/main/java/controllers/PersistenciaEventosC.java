@@ -13,7 +13,7 @@ public class PersistenciaEventosC {
     public static void guardarEventos(List<Evento> eventos) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO_EVENTOS))) {
             for (Evento e : eventos) {
-                bw.write(e.getIdEvento() + ";" +
+                bw.write(e.getId() + ";" +
                         e.getNombre() + ";" +
                         e.getFecha() + ";" +
                         e.getPrecioBase() + ";" +

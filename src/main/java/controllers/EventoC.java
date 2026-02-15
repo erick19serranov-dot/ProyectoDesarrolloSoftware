@@ -2,7 +2,6 @@ package controllers;
 
 import models.Evento;
 
-import javax.swing.JOptionPane;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class EventoC {
 
     public Evento buscarEventoPorId(String idEvento) {
         for (Evento e : eventos) {
-            if (e.getIdEvento().equals(idEvento)) {
+            if (e.getId().equals(idEvento)) {
                 return e;
             }
         }

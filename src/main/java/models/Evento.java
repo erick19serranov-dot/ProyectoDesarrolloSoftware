@@ -1,27 +1,35 @@
 package models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Evento {
-    private String idEvento;
+    private String id;
     private String nombre;
-    private String fecha;
+    private String descripcion;
+    //private String categoría;
+    private LocalDate fecha;
+    private LocalDateTime hora;
     private double precioBase;
 
-    private boolean [][] asientos;
-    private List<Entrada> entradasVendidas;
+//    private boolean [][] asientos;
+//    private List<Entrada> entradasVendidas;
 
-    public Evento(String idEvento, String nombre,String fecha, double precioBase, int filas, int columnas){
-
-        this.idEvento = idEvento;
+    public Evento(String id, String nombre, String descripcion, LocalDate fecha, LocalDateTime hora, double precioBase) {
+        this.id = id;
         this.nombre = nombre;
+        this.descripcion = descripcion;
         this.fecha = fecha;
+        this.hora = hora;
         this.precioBase = precioBase;
+    }
 
-        this.asientos = new boolean[filas][columnas];
-        this.entradasVendidas = new ArrayList<>();
-        }
+
+//        this.asientos = new boolean[filas][columnas];
+//        this.entradasVendidas = new ArrayList<>();
+//        }
 
 
         public boolean venderEntrada(Entrada entrada){
@@ -63,8 +71,8 @@ public class Evento {
         return asientos[fila][columna];
     }
 
-    public String getIdEvento() {
-        return idEvento;
+    public String getId() {
+        return id;
     }
 
     public String getNombre(){
