@@ -31,7 +31,7 @@ private static void crearAdministrador() throws IOException {
     Administrador admin = new Administrador();
     admin.setName("profe");
     admin.setPassword("1234");
-    agregarAdministrador(admin);
+    agregarAdministrador();
 }
 
 }
