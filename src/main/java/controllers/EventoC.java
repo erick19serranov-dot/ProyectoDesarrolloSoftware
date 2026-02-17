@@ -3,6 +3,7 @@ package controllers;
 import models.Evento;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class EventoC {
     public void crearEvento(String idEvento, String nombre, String fecha,
                             double precioBase, int filas, int columnas) {
 
-        Evento nuevo = new Evento(idEvento, nombre, fecha, precioBase, filas, columnas);
+        Evento nuevo = new Evento(idEvento, nombre, LocalDate.parse(fecha), precioBase, filas, columnas);
         eventos.add(nuevo);
     }
 

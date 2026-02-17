@@ -2,7 +2,6 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Evento {
@@ -14,8 +13,8 @@ public class Evento {
     private LocalDateTime hora;
     private double precioBase;
 
-//    private boolean [][] asientos;
-//    private List<Entrada> entradasVendidas;
+    private boolean [][] asientos;
+    private List<Entrada> entradasVendidas;
 
     public Evento(String id, String nombre, String descripcion, LocalDate fecha, LocalDateTime hora, double precioBase) {
         this.id = id;
@@ -79,7 +78,7 @@ public class Evento {
         return nombre;
     }
 
-    public String getFecha(){
+    public LocalDate getFecha(){
         return fecha;
     }
 
@@ -99,7 +98,7 @@ public class Evento {
         this.nombre = nombre;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 

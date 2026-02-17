@@ -1,9 +1,15 @@
 package controllers;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -15,9 +21,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import models.Evento;
 
 public class AdminViewController {
@@ -121,7 +130,7 @@ public class AdminViewController {
 
     @FXML
     void cancelarCampos(ActionEvent event) {
-
+        limpiarCampos();
     }
 
     @FXML
@@ -136,7 +145,14 @@ public class AdminViewController {
 
     @FXML
     void importarImagen(ActionEvent event) {
-
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar imagen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png", "*.jpeg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            image_event_manage.setImage(new Image(selectedFile.toURI().toString()));
+        }
+        
     }
 
     @FXML
@@ -151,7 +167,25 @@ public class AdminViewController {
 
     @FXML
     void regresarPagPrincipal(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = (Stage) btn_goback_event_manage.getScene().getWindow();
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void limpiarCampos() {
+        txt_name_event_manage.clear();
+        txt_description_event_manage.clear();
+        txt_date_manage_billboard.clear();
+        txt_price_event_manage.clear();
+        txt_seats_manage_billboard.clear();
+        image_event_manage.setImage(null);
     }
 
 }
