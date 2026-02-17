@@ -11,6 +11,8 @@ public class PersistenciaAdministradores {
 
     private static final String archivo = "administradores.txt";
     private static final String separador = ";";
+    private static String nombre = "profe";
+    private static String password = "1234";
 
 
 private static void guardarAdministrador(Administrador admin) throws IOException {
@@ -21,19 +23,11 @@ private static void guardarAdministrador(Administrador admin) throws IOException
     bw.close();
 }
 private static void agregarAdministrador(String nombre, String password) throws IOException {
-    Administrador admin = new Administrador();
+    Administrador admin = new Administrador(nombre, password);
     admin.setName(nombre);
     admin.setPassword(password);
     guardarAdministrador(admin);
 }
-
-private static void crearAdministrador() throws IOException {
-    Administrador admin = new Administrador();
-    admin.setName("profe");
-    admin.setPassword("1234");
-    agregarAdministrador();
-}
-
 }
 
 

@@ -219,7 +219,7 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void asignarDisponible(ActionEvent event) {
-
+        
     }
 
     @FXML

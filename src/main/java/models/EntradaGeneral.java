@@ -8,17 +8,9 @@ public class EntradaGeneral extends Entrada {
 
     @Override
     public double calcularPrecioFinal(){
+
         return precioBase;
     }
 
-    @Override
-    public String generarDetalle(){
-        return  "==ENTRADA GENERAL TICKET==\n" +
-                "ID:" + idEntrada + "\n" +
-                "Cliente: " + nombreCliente + "\n" +
-                "Asiento: " + getAsientoTexto() + "\n" +
-                "Precio Base: " + precioBase + "\n" +
-                "Precio Final: " + calcularPrecioFinal() + "\n";
-    }
 
 }

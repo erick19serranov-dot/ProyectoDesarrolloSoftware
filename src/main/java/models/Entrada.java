@@ -3,42 +3,40 @@ package models;
 public abstract class Entrada implements IImprimible {
 
     protected String idEntrada;
-    protected String nombreCliente;
     protected int fila;
     protected int columna;
-    protected double precioBase;
 
-    public Entrada(String idEntrada, String nombreCliente, int fila, int columna, double precioBase){
+    public Entrada(String idEntrada, int fila, int columna) {
         this.idEntrada = idEntrada;
-        this.nombreCliente = nombreCliente;
         this.fila = fila;
         this.columna = columna;
-        this.precioBase = precioBase;
     }
-
-    public abstract double calcularPrecioFinal();
 
     public String getIdEntrada() {
         return idEntrada;
     }
 
-    public String getNombreCliente() {
-        return nombreCliente;
+    public void setIdEntrada(String idEntrada) {
+        this.idEntrada = idEntrada;
     }
 
     public int getFila() {
         return fila;
     }
 
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
     public int getColumna() {
         return columna;
     }
 
-    public double getPrecioBase() {
-        return precioBase;
+    public void setColumna(int columna) {
+        this.columna = columna;
     }
 
-public String getAsientoTexto(){
+    public String getAsientoTexto(){
     return "Fila: " + (fila + 1) + ", Columna: " + (columna + 1);
 }
 
