@@ -262,7 +262,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="label_value_tickets_sold" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>
@@ -279,7 +279,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="label_value_events_active" layoutX="150.0" layoutY="60.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>
@@ -296,7 +296,7 @@
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font></Label>
-                                                            <Label layoutX="146.0" layoutY="57.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
+                                                            <Label fx:id="label_value_events_total" layoutX="146.0" layoutY="57.0" prefHeight="23.0" prefWidth="200.0" styleClass="text-billing" stylesheets="@../styles/adminview.css" text="0" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="36.0" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="60.0">
                                                                <font>
                                                                   <Font name="Tahoma Bold" size="18.0" />
                                                                </font>

@@ -36,9 +36,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Entrada;
+import models.EntradaEstudiante;
+import models.EntradaGeneral;
+import models.EntradaVIP;
 import models.Evento;
 
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
@@ -94,6 +99,12 @@ public class AdminViewController implements Initializable {
     @FXML
     private Label number_total_income_billboard;
     @FXML
+    private Label label_value_tickets_sold;
+    @FXML
+    private Label label_value_events_active;
+    @FXML
+    private Label label_value_events_total;
+    @FXML
     private Spinner<Integer> sp_hour_event_manage;
     @FXML
     private Spinner<Integer> sp_minutes_event_manage;
@@ -137,6 +148,7 @@ public class AdminViewController implements Initializable {
         configurarSpinners();
         configurarTabla();
         refrescarTabla();
+        actualizarFacturacion();
         table_manage_event.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 cargarEventoEnFormulario(newVal);
@@ -144,77 +156,10 @@ public class AdminViewController implements Initializable {
         });
     }
 
-    private void configurarSpinners() {
-        if (sp_hour_event_manage != null) {
-            sp_hour_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
-        }
-        if (sp_minutes_event_manage != null) {
-            sp_minutes_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
-        }
-    }
-
-    private void configurarTabla() {
-        tbl_col_id_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-        tbl_col_name_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-        tbl_col_description_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion() != null ? cellData.getValue().getDescripcion() : ""));
-        tbl_col_category_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(""));
-        tbl_col_price_manage_event.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrecioBase()).asObject());
-        tbl_col_date_manage_event.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFecha()));
-        tbl_col_time_manage_event.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getHora()));
-    }
-
-    private void refrescarTabla() {
-        table_manage_event.getItems().clear();
-        table_manage_event.getItems().addAll(eventoController.getEventos());
-    }
-
-    private void cargarEventoEnFormulario(Evento e) {
-        txt_name_event_manage.setText(e.getNombre());
-        txt_description_event_manage.setText(e.getDescripcion() != null ? e.getDescripcion() : "");
-        date_event_manage.setValue(e.getFecha());
-        txt_price_event_manage.setText(String.valueOf(e.getPrecioBase()));
-        if (e.getHora() != null && sp_hour_event_manage != null && sp_minutes_event_manage != null) {
-            sp_hour_event_manage.getValueFactory().setValue(e.getHora().getHour());
-            sp_minutes_event_manage.getValueFactory().setValue(e.getHora().getMinute());
-        }
-    }
 
     @FXML
     void agregarEventoTabla(ActionEvent event) {
-        String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
-        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
-        LocalDate fecha = date_event_manage.getValue();
-        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
-
-        if (nombre.isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
-            return;
-        }
-        if (fecha == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
-            return;
-        }
-        double precio;
-        try {
-            precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException("Precio no válido");
-        } catch (NumberFormatException ex) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
-            return;
-        }
-
-        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
-        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
-        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
-
-        String id = "E" + System.currentTimeMillis();
-        Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
-        nuevo.setAsientos(new boolean[10][10]);
-        eventoController.getEventos().add(nuevo);
-        eventoController.guardarCambios();
-        refrescarTabla();
-        limpiarCampos();
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento agregado", "El evento se ha agregado correctamente.");
+     crearEvento();
     }
 
     @FXML
@@ -234,19 +179,7 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void eliminarEventoTabla(ActionEvent event) {
-        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para eliminar.");
-            return;
-        }
-        Optional<ButtonType> resultado = new Alert(Alert.AlertType.CONFIRMATION, "¿Eliminar el evento \"" + seleccionado.getNombre() + "\"?", ButtonType.OK, ButtonType.CANCEL).showAndWait();
-        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
-            eventoController.getEventos().remove(seleccionado);
-            eventoController.guardarCambios();
-            refrescarTabla();
-            limpiarCampos();
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento eliminado", "El evento se ha eliminado correctamente.");
-        }
+      borrarEvento();
     }
 
     @FXML
@@ -263,46 +196,7 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void modificarEventoTabla(ActionEvent event) {
-        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para modificar.");
-            return;
-        }
-        String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
-        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
-        LocalDate fecha = date_event_manage.getValue();
-        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
-
-        if (nombre.isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
-            return;
-        }
-        if (fecha == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
-            return;
-        }
-        double precio;
-        try {
-            precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException("Precio no válido");
-        } catch (NumberFormatException ex) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
-            return;
-        }
-
-        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
-        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
-        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
-
-        seleccionado.setNombre(nombre);
-        seleccionado.setDescripcion(descripcion);
-        seleccionado.setFecha(fecha);
-        seleccionado.setHora(horaEvento);
-        seleccionado.setPrecioBase(precio);
-        eventoController.guardarCambios();
-        refrescarTabla();
-        limpiarCampos();
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
+        editarEvento();
     }
 
     @FXML
@@ -345,4 +239,186 @@ public class AdminViewController implements Initializable {
         alert.showAndWait();
     }
 
-}
+
+    private void configurarSpinners() {
+        if (sp_hour_event_manage != null) {
+            sp_hour_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+        }
+        if (sp_minutes_event_manage != null) {
+            sp_minutes_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        }
+    }
+
+    private void configurarTabla() {
+        tbl_col_id_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        tbl_col_name_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tbl_col_description_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion() != null ? cellData.getValue().getDescripcion() : ""));
+        tbl_col_category_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(""));
+        tbl_col_price_manage_event.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrecioBase()).asObject());
+        tbl_col_date_manage_event.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFecha()));
+        tbl_col_time_manage_event.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getHora()));
+    }
+
+    private void refrescarTabla() {
+        table_manage_event.getItems().clear();
+        table_manage_event.getItems().addAll(eventoController.getEventos());
+    }
+
+    private void cargarEventoEnFormulario(Evento e) {
+        txt_name_event_manage.setText(e.getNombre());
+        txt_description_event_manage.setText(e.getDescripcion() != null ? e.getDescripcion() : "");
+        date_event_manage.setValue(e.getFecha());
+        txt_price_event_manage.setText(String.valueOf(e.getPrecioBase()));
+        if (e.getHora() != null && sp_hour_event_manage != null && sp_minutes_event_manage != null) {
+            sp_hour_event_manage.getValueFactory().setValue(e.getHora().getHour());
+            sp_minutes_event_manage.getValueFactory().setValue(e.getHora().getMinute());
+        }
+    }
+
+    private void actualizarFacturacion() {
+        int vip = 0, estudiante = 0, regular = 0;
+        int totalBoletos = 0;
+        int eventosActivos = 0;
+        double ingresosConciertos = 0;
+        double ingresosTeatro = 0;
+        double ingresosTotales = 0;
+
+        LocalDate hoy = LocalDate.now();
+        List<Evento> eventos = eventoController.getEventos();
+
+        for (Evento evento : eventos) {
+            if (evento.getFecha() != null && !evento.getFecha().isBefore(hoy)) {
+                eventosActivos++;
+            }
+            List<Entrada> entradas = evento.getEntradasVendidas();
+            if (entradas != null) {
+                for (Entrada e : entradas) {
+                    totalBoletos++;
+                    if (e instanceof EntradaVIP) vip++;
+                    else if (e instanceof EntradaEstudiante) estudiante++;
+                    else if (e instanceof EntradaGeneral) regular++;
+                }
+                double recaudacion = evento.calcularRecaudacion();
+                ingresosTotales += recaudacion;
+                String nombreEvento = evento.getNombre() != null ? evento.getNombre().toLowerCase() : "";
+                if (nombreEvento.contains("concierto")) {
+                    ingresosConciertos += recaudacion;
+                } else {
+                    ingresosTeatro += recaudacion;
+                }
+            }
+        }
+
+        int totalEventos = eventos.size();
+
+        if (number_tickets_vip_billboard != null) number_tickets_vip_billboard.setText(String.valueOf(vip));
+        if (number_tickets_student_billboard != null) number_tickets_student_billboard.setText(String.valueOf(estudiante));
+        if (number_tickets_regular_billboard != null) number_tickets_regular_billboard.setText(String.valueOf(regular));
+        if (label_value_tickets_sold != null) label_value_tickets_sold.setText(String.valueOf(totalBoletos));
+        if (label_value_events_active != null) label_value_events_active.setText(String.valueOf(eventosActivos));
+        if (label_value_events_total != null) label_value_events_total.setText(String.valueOf(totalEventos));
+        if (number_income_concerts_billboard != null) number_income_concerts_billboard.setText(String.format("%.2f", ingresosConciertos));
+        if (number_income_plays_billboard != null) number_income_plays_billboard.setText(String.format("%.2f", ingresosTeatro));
+        if (number_total_income_billboard != null) number_total_income_billboard.setText(String.format("%.2f", ingresosTotales));
+    }
+
+    private void crearEvento() {
+   String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
+        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
+        LocalDate fecha = date_event_manage.getValue();
+        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
+
+        if (nombre.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
+            return;
+        }
+        if (fecha == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
+            return;
+        }
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio < 0) throw new NumberFormatException("Precio no válido");
+        } catch (NumberFormatException ex) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
+            return;
+        }
+
+        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
+        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
+        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
+
+        String id = "E" + System.currentTimeMillis();
+        Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
+        nuevo.setAsientos(new boolean[10][10]);
+        eventoController.getEventos().add(nuevo);
+        eventoController.guardarCambios();
+        refrescarTabla();
+        actualizarFacturacion();
+        limpiarCampos();
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento agregado", "El evento se ha agregado correctamente.");
+    }
+
+private void borrarEvento() {
+
+      Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para eliminar.");
+            return;
+        }
+        Optional<ButtonType> resultado = new Alert(Alert.AlertType.CONFIRMATION, "¿Eliminar el evento \"" + seleccionado.getNombre() + "\"?", ButtonType.OK, ButtonType.CANCEL).showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            eventoController.getEventos().remove(seleccionado);
+            eventoController.guardarCambios();
+            refrescarTabla();
+            actualizarFacturacion();
+            limpiarCampos();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento eliminado", "El evento se ha eliminado correctamente.");
+        }
+    }
+
+private void editarEvento() {
+
+ Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para modificar.");
+            return;
+        }
+        String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
+        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
+        LocalDate fecha = date_event_manage.getValue();
+        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
+
+        if (nombre.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
+            return;
+        }
+        if (fecha == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
+            return;
+        }
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio < 0) throw new NumberFormatException("Precio no válido");
+        } catch (NumberFormatException ex) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
+            return;
+        }
+
+        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
+        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
+        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
+
+        seleccionado.setNombre(nombre);
+        seleccionado.setDescripcion(descripcion);
+        seleccionado.setFecha(fecha);
+        seleccionado.setHora(horaEvento);
+        seleccionado.setPrecioBase(precio);
+        eventoController.guardarCambios();
+        refrescarTabla();
+        actualizarFacturacion();
+        limpiarCampos();
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
+    }
