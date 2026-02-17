@@ -3,6 +3,7 @@ package controllers;
 import models.Evento;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,13 +68,13 @@ public class PersistenciaEventosC {
 
                 String id = datos[0];
                 String nombre = datos[1];
-                String fecha = datos[2];
+                LocalDate fecha = LocalDate.parse(datos[2]);
                 double precioBase = Double.parseDouble(datos[3]);
                 int filas = Integer.parseInt(datos[4]);
                 int columnas = Integer.parseInt(datos[5]);
                 boolean[][] asientos = deserializarMatriz(datos[6], filas, columnas);
 
-                Evento evento = new Evento(id, nombre, fecha, precioBase, filas, columnas);
+                Evento evento = new Evento(id, nombre, "", fecha, null, precioBase);
                 evento.setAsientos(asientos);
                 eventos.add(evento);
             }
