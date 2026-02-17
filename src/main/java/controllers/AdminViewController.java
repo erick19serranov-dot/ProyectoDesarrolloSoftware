@@ -4,18 +4,27 @@ import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -29,7 +38,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Evento;
 
-public class AdminViewController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class AdminViewController implements Initializable {
+
+    private final EventoC eventoController = MainController.getEventoController();
 
     @FXML
     private GridPane billboard_GP_manage;
@@ -80,11 +94,11 @@ public class AdminViewController {
     @FXML
     private Label number_total_income_billboard;
     @FXML
-    private Spinner<?> sp_hour_event_manage;
+    private Spinner<Integer> sp_hour_event_manage;
     @FXML
-    private Spinner<?> sp_minutes_event_manage;
+    private Spinner<Integer> sp_minutes_event_manage;
     @FXML
-    private TableView<?> table_manage_event;
+    private TableView<Evento> table_manage_event;
     @FXML
     private TableColumn<Evento, String> tbl_col_category_manage_event;
     @FXML
@@ -92,7 +106,7 @@ public class AdminViewController {
     @FXML
     private TableColumn<Evento, String> tbl_col_description_manage_event;
     @FXML
-    private TableColumn<Evento, Integer> tbl_col_id_manage_event;
+    private TableColumn<Evento, String> tbl_col_id_manage_event;
     @FXML
     private TableColumn<Evento, String> tbl_col_name_manage_event;
     @FXML
@@ -118,9 +132,89 @@ public class AdminViewController {
     @FXML
     private TextField txt_seats_manage_billboard;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        configurarSpinners();
+        configurarTabla();
+        refrescarTabla();
+        table_manage_event.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                cargarEventoEnFormulario(newVal);
+            }
+        });
+    }
+
+    private void configurarSpinners() {
+        if (sp_hour_event_manage != null) {
+            sp_hour_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 23, 0));
+        }
+        if (sp_minutes_event_manage != null) {
+            sp_minutes_event_manage.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 0));
+        }
+    }
+
+    private void configurarTabla() {
+        tbl_col_id_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
+        tbl_col_name_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
+        tbl_col_description_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDescripcion() != null ? cellData.getValue().getDescripcion() : ""));
+        tbl_col_category_manage_event.setCellValueFactory(cellData -> new SimpleStringProperty(""));
+        tbl_col_price_manage_event.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrecioBase()).asObject());
+        tbl_col_date_manage_event.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFecha()));
+        tbl_col_time_manage_event.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getHora()));
+    }
+
+    private void refrescarTabla() {
+        table_manage_event.getItems().clear();
+        table_manage_event.getItems().addAll(eventoController.getEventos());
+    }
+
+    private void cargarEventoEnFormulario(Evento e) {
+        txt_name_event_manage.setText(e.getNombre());
+        txt_description_event_manage.setText(e.getDescripcion() != null ? e.getDescripcion() : "");
+        date_event_manage.setValue(e.getFecha());
+        txt_price_event_manage.setText(String.valueOf(e.getPrecioBase()));
+        if (e.getHora() != null && sp_hour_event_manage != null && sp_minutes_event_manage != null) {
+            sp_hour_event_manage.getValueFactory().setValue(e.getHora().getHour());
+            sp_minutes_event_manage.getValueFactory().setValue(e.getHora().getMinute());
+        }
+    }
+
     @FXML
     void agregarEventoTabla(ActionEvent event) {
+        String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
+        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
+        LocalDate fecha = date_event_manage.getValue();
+        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
 
+        if (nombre.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
+            return;
+        }
+        if (fecha == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
+            return;
+        }
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio < 0) throw new NumberFormatException("Precio no válido");
+        } catch (NumberFormatException ex) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
+            return;
+        }
+
+        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
+        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
+        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
+
+        String id = "E" + System.currentTimeMillis();
+        Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
+        nuevo.setAsientos(new boolean[10][10]);
+        eventoController.getEventos().add(nuevo);
+        eventoController.guardarCambios();
+        refrescarTabla();
+        limpiarCampos();
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento agregado", "El evento se ha agregado correctamente.");
     }
 
     @FXML
@@ -140,7 +234,19 @@ public class AdminViewController {
 
     @FXML
     void eliminarEventoTabla(ActionEvent event) {
-
+        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para eliminar.");
+            return;
+        }
+        Optional<ButtonType> resultado = new Alert(Alert.AlertType.CONFIRMATION, "¿Eliminar el evento \"" + seleccionado.getNombre() + "\"?", ButtonType.OK, ButtonType.CANCEL).showAndWait();
+        if (resultado.isPresent() && resultado.get() == ButtonType.OK) {
+            eventoController.getEventos().remove(seleccionado);
+            eventoController.guardarCambios();
+            refrescarTabla();
+            limpiarCampos();
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento eliminado", "El evento se ha eliminado correctamente.");
+        }
     }
 
     @FXML
@@ -157,7 +263,46 @@ public class AdminViewController {
 
     @FXML
     void modificarEventoTabla(ActionEvent event) {
+        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para modificar.");
+            return;
+        }
+        String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
+        String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
+        LocalDate fecha = date_event_manage.getValue();
+        String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
 
+        if (nombre.isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
+            return;
+        }
+        if (fecha == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Seleccione la fecha del evento.");
+            return;
+        }
+        double precio;
+        try {
+            precio = Double.parseDouble(precioStr);
+            if (precio < 0) throw new NumberFormatException("Precio no válido");
+        } catch (NumberFormatException ex) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
+            return;
+        }
+
+        int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
+        int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
+        LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
+
+        seleccionado.setNombre(nombre);
+        seleccionado.setDescripcion(descripcion);
+        seleccionado.setFecha(fecha);
+        seleccionado.setHora(horaEvento);
+        seleccionado.setPrecioBase(precio);
+        eventoController.guardarCambios();
+        refrescarTabla();
+        limpiarCampos();
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
     }
 
     @FXML
@@ -185,7 +330,19 @@ public class AdminViewController {
         txt_date_manage_billboard.clear();
         txt_price_event_manage.clear();
         txt_seats_manage_billboard.clear();
+        if (date_event_manage != null) date_event_manage.setValue(null);
+        if (sp_hour_event_manage != null) sp_hour_event_manage.getValueFactory().setValue(0);
+        if (sp_minutes_event_manage != null) sp_minutes_event_manage.getValueFactory().setValue(0);
         image_event_manage.setImage(null);
+        table_manage_event.getSelectionModel().clearSelection();
+    }
+
+    private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
+        Alert alert = new Alert(tipo);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
 }

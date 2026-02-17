@@ -8,7 +8,6 @@ public class Evento {
     private String id;
     private String nombre;
     private String descripcion;
-    //private String categoría;
     private LocalDate fecha;
     private LocalDateTime hora;
     private double precioBase;
@@ -25,10 +24,6 @@ public class Evento {
         this.precioBase = precioBase;
     }
 
-
-//        this.asientos = new boolean[filas][columnas];
-//        this.entradasVendidas = new ArrayList<>();
-//        }
 
 
         public boolean venderEntrada(Entrada entrada){
@@ -76,6 +71,22 @@ public class Evento {
 
     public String getNombre(){
         return nombre;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public LocalDateTime getHora() {
+        return hora;
+    }
+
+    public void setHora(LocalDateTime hora) {
+        this.hora = hora;
     }
 
     public LocalDate getFecha(){
