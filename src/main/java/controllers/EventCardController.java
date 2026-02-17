@@ -15,6 +15,10 @@ public class EventCardController {
     @FXML
     void setCard(ActionEvent event) {
         
-        
     }
+
+    public void actualizarNombreEvento(String nombreEvento) {
+        txt_name_event_card.setText(nombreEvento);
+    }
+        
 }

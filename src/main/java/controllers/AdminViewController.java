@@ -145,14 +145,7 @@ public class AdminViewController {
 
     @FXML
     void importarImagen(ActionEvent event) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Seleccionar imagen");
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png", "*.jpeg"));
-        File selectedFile = fileChooser.showOpenDialog(null);
-        if (selectedFile != null) {
-            image_event_manage.setImage(new Image(selectedFile.toURI().toString()));
-        }
-        
+        agregarImagen();
     }
 
     @FXML
@@ -162,11 +155,24 @@ public class AdminViewController {
 
     @FXML
     void publicarEventoTabla(ActionEvent event) {
-
     }
 
     @FXML
     void regresarPagPrincipal(ActionEvent event) {
+        cargarBillboard();
+    }
+
+    private void agregarImagen() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Seleccionar imagen");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imagenes", "*.jpg", "*.png", "*.jpeg"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        if (selectedFile != null) {
+            image_event_manage.setImage(new Image(selectedFile.toURI().toString()));
+        }
+    }
+
+    private void cargarBillboard() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
             Parent root = loader.load();
@@ -179,7 +185,7 @@ public class AdminViewController {
         }
     }
 
-    public void limpiarCampos() {
+    private void limpiarCampos() {
         txt_name_event_manage.clear();
         txt_description_event_manage.clear();
         txt_date_manage_billboard.clear();
