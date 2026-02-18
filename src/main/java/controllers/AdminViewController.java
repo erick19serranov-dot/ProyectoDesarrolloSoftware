@@ -149,6 +149,7 @@ public class AdminViewController implements Initializable {
     @FXML
     void agregarEventoTabla(ActionEvent event) {
         crearEvento();
+        limpiarCampos();
     }        
 
     @FXML
@@ -178,6 +179,43 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void modificarEventoTabla(ActionEvent event) {
+        editarEvento();
+        limpiarCampos();
+    }
+
+    @FXML
+    void publicarEventoTabla(ActionEvent event) {
+        publicarEvento();
+        limpiarCampos();
+    }
+
+    @FXML
+    void regresarPagPrincipal(ActionEvent event) {
+        cargarBillboard();
+    }
+
+    private void publicarEvento(){
+        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+        if (seleccionado == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin Selección", "Seleccione un evento de la tabla para publicar.");
+            return;
+        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
+            AnchorPane root = loader.load();
+            EventCardController cardController = loader.getController();
+            cardController.setEvento(seleccionado);
+            int size = billboard_GP_manage.getChildren().size();
+            int col = size % 3;
+            int row = size / 3;
+            billboard_GP_manage.add(root, col, row);
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento publicado", "El evento fue publicado correctamente en la cartelera.");
+        } catch (IOException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error al publicar", "No se pudo publicar el evento.");
+        }
+    }
+
+    private void editarEvento() {
         Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione un evento de la tabla para modificar.");
@@ -218,33 +256,6 @@ public class AdminViewController implements Initializable {
         refrescarTabla();
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
-    }
-
-    @FXML
-    void publicarEventoTabla(ActionEvent event) {
-        Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
-        if (seleccionado == null) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin Selección", "Seleccione un evento de la tabla para publicar.");
-            return;
-        }
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
-            AnchorPane root = loader.load();
-            EventCardController cardController = loader.getController();
-            cardController.setEvento(seleccionado);
-            int size = billboard_GP_manage.getChildren().size();
-            int col = size % 3;
-            int row = size / 3;
-            billboard_GP_manage.add(root, col, row);
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento publicado", "El evento fue publicado correctamente en la cartelera.");
-        } catch (IOException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al publicar", "No se pudo publicar el evento.");
-        }
-    }
-
-    @FXML
-    void regresarPagPrincipal(ActionEvent event) {
-        cargarBillboard();
     }
 
     private void eliminarEvento() {
