@@ -1,24 +1,46 @@
 package controllers;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import models.Evento;
 
-public class EventCardController {
+public class EventCardController implements Initializable {
+
+    private Evento evento;
+
     
+    @FXML
+    private AnchorPane pane_event_card;
     @FXML
     private Button btn_selectCard;
     @FXML
     private Label txt_name_event_card;
 
-    @FXML
-    void setCard(ActionEvent event) {
-        
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        actualizarNombreEvento();
     }
 
-    public void actualizarNombreEvento(String nombreEvento) {
-        txt_name_event_card.setText(nombreEvento);
+    @FXML
+    void setCard(ActionEvent event) {
+        actualizarNombreEvento();
+
     }
-        
+    public void setEvento(Evento evento) {
+        this.evento = evento;
+        actualizarNombreEvento();
+    }
+
+    private void actualizarNombreEvento() {
+        if (evento != null && txt_name_event_card != null) {
+            txt_name_event_card.setText(evento.getNombre());
+        }
+    }
 }
