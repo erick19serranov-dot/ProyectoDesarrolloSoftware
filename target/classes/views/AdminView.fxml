@@ -144,10 +144,10 @@
                                                                                 <String fx:value="shadow" />
                                                                             </styleClass>
                                                                             <children>
-                                                                                <ToggleButton fx:id="btn_available_billboard" layoutX="130.0" layoutY="377.0" mnemonicParsing="false" onAction="#asignarDisponible" stylesheets="@../styles/adminview.css" text="Disponible" textFill="WHITE">
+                                                                                <ToggleButton fx:id="btn_available_billboard" layoutX="130.0" layoutY="377.0" mnemonicParsing="false" onAction="#asignarDisponible" stylesheets="@../styles/adminview.css" text="Disponible">
                                                                <styleClass>
                                                                   <String fx:value="shadow" />
-                                                                  <String fx:value="btn-manage-billboard" />
+                                                                  <String fx:value="btn-available" />
                                                                </styleClass></ToggleButton>
                                                                                 <Button fx:id="btn_manage_event_billboard" layoutX="17.0" layoutY="377.0" mnemonicParsing="false" onAction="#devolverEventoGestion" stylesheets="@../styles/adminview.css" text="Gestionar" textFill="WHITE">
                                                                <styleClass>
