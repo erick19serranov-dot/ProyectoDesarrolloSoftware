@@ -3,8 +3,8 @@ package models;
 public abstract class Entrada implements IImprimible {
 
     protected String idEntrada;
-    protected int fila;
-    protected int columna;
+    protected int fila = 15;
+    protected int columna = 10;
 
     public Entrada(String idEntrada, int fila, int columna) {
         this.idEntrada = idEntrada;

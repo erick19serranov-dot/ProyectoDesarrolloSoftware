@@ -42,7 +42,6 @@ import models.Evento;
 
 public class AdminViewController implements Initializable {
 
-
     @FXML
     private GridPane billboard_GP_manage;
     @FXML
@@ -136,7 +135,7 @@ public class AdminViewController implements Initializable {
         configurarComboBox();
         configurarDatePicker();
         configurarTabla();
-        refrescarTabla();
+        //refrescarTabla();
         table_manage_event.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 cargarEventoEnFormulario(newVal);
@@ -144,17 +143,15 @@ public class AdminViewController implements Initializable {
         });
     }
 
-    
-
     @FXML
     void agregarEventoTabla(ActionEvent event) {
         crearEvento();
         limpiarCampos();
-    }        
+    }
 
     @FXML
     void asignarDisponible(ActionEvent event) {
-        
+
     }
 
     @FXML
@@ -169,7 +166,7 @@ public class AdminViewController implements Initializable {
 
     @FXML
     void eliminarEventoTabla(ActionEvent event) {
-        eliminarEvento();
+        //eliminarEvento();
     }
 
     @FXML
@@ -194,7 +191,7 @@ public class AdminViewController implements Initializable {
         cargarBillboard();
     }
 
-    private void publicarEvento(){
+    private void publicarEvento() {
         Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Sin Selección", "Seleccione un evento de la tabla para publicar.");
@@ -237,7 +234,9 @@ public class AdminViewController implements Initializable {
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException("Precio no válido");
+            if (precio < 0) {
+                throw new NumberFormatException("Precio no válido");
+            }
         } catch (NumberFormatException ex) {
             mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
             return;
@@ -252,12 +251,15 @@ public class AdminViewController implements Initializable {
         seleccionado.setFecha(fecha);
         seleccionado.setHora(horaEvento);
         seleccionado.setPrecioBase(precio);
+        /*
         eventoController.guardarCambios();
         refrescarTabla();
+        */
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
     }
 
+    /*
     private void eliminarEvento() {
         Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
         if (seleccionado == null) {
@@ -272,7 +274,9 @@ public class AdminViewController implements Initializable {
             limpiarCampos();
             mostrarAlerta(Alert.AlertType.INFORMATION, "Evento eliminado", "El evento se ha eliminado correctamente.");
         }
-        }
+    }
+     */
+    
     private void crearEvento() {
         String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
         String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
@@ -290,7 +294,9 @@ public class AdminViewController implements Initializable {
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException("Precio no válido");
+            if (precio < 0) {
+                throw new NumberFormatException("Precio no válido");
+            }
         } catch (NumberFormatException ex) {
             mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
             return;
@@ -302,10 +308,12 @@ public class AdminViewController implements Initializable {
 
         String id = "E" + System.currentTimeMillis();
         Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
-        nuevo.setAsientos(new boolean[10][10]);
+        nuevo.setAsientos(new boolean[15][10]);
+        /*
         eventoController.getEventos().add(nuevo);
         eventoController.guardarCambios();
         refrescarTabla();
+        */
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento agregado", "El evento se ha agregado correctamente.");
     }
@@ -341,14 +349,17 @@ public class AdminViewController implements Initializable {
         tbl_col_date_manage_event.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getFecha()));
         tbl_col_time_manage_event.setCellValueFactory(cellData -> new ReadOnlyObjectWrapper<>(cellData.getValue().getHora()));
     }
+
     private void configurarBillboard() {
 
     }
 
+    /*
     private void refrescarTabla() {
         table_manage_event.getItems().clear();
         table_manage_event.getItems().addAll(eventoController.getEventos());
     }
+*/
 
     private void cargarEventoEnFormulario(Evento e) {
         txt_name_event_manage.setText(e.getNombre());
@@ -390,9 +401,15 @@ public class AdminViewController implements Initializable {
         txt_date_manage_billboard.clear();
         txt_price_event_manage.clear();
         txt_seats_manage_billboard.clear();
-        if (date_event_manage != null) date_event_manage.setValue(null);
-        if (sp_hour_event_manage != null) sp_hour_event_manage.getValueFactory().setValue(0);
-        if (sp_minutes_event_manage != null) sp_minutes_event_manage.getValueFactory().setValue(0);
+        if (date_event_manage != null) {
+            date_event_manage.setValue(null);
+        }
+        if (sp_hour_event_manage != null) {
+            sp_hour_event_manage.getValueFactory().setValue(0);
+        }
+        if (sp_minutes_event_manage != null) {
+            sp_minutes_event_manage.getValueFactory().setValue(0);
+        }
         image_event_manage.setImage(null);
         table_manage_event.getSelectionModel().clearSelection();
     }

@@ -33,6 +33,7 @@ public class LoginAdminController {
             return;
         }
 
+        /*
         try {
             List<models.Administrador> admins = PersistenciaAdministradores.cargarAdministradores();
             boolean valido = admins.stream()
@@ -53,7 +54,7 @@ public class LoginAdminController {
             }
         } catch (IOException e) {
             mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de administración.");
-        }
+        }*/
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

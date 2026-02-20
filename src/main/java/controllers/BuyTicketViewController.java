@@ -1,7 +1,11 @@
 package controllers;
 
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -99,6 +103,8 @@ public class BuyTicketViewController {
     @FXML
     private TextField txt_seats_available_event_buy;
 
+    
+
     @FXML
     void agregarCompra(ActionEvent event) {
 
@@ -126,12 +132,36 @@ public class BuyTicketViewController {
 
     @FXML
     void mostrarCartelera(ActionEvent event) {
-
+        crearAsientos();
     }
 
     @FXML
     void mostrarCompraEntradas(ActionEvent event) {
 
     }
+
+    private void crearAsientos() {
+        gp_stage_seats.getChildren().clear();
+    int totalRows = 15; 
+    int totalCols = 11; 
+
+    for (int row = 0; row < totalRows; row++) {
+        char rowLetter = (char) ('A' + row);
+        int seatNum = 1;
+
+        for (int col = 0; col < totalCols; col++) {
+            if (col == totalCols / 2) {
+                continue;
+            }
+
+            String seatLabel = rowLetter + Integer.toString(seatNum);
+            javafx.scene.control.ToggleButton seatBtn = new javafx.scene.control.ToggleButton(seatLabel);
+            seatBtn.setMaxWidth(Double.MAX_VALUE);
+            seatBtn.setMaxHeight(Double.MAX_VALUE);
+            gp_stage_seats.add(seatBtn, col, row);
+            seatNum++;
+        }
+    }
+}
     
 }
