@@ -3,6 +3,7 @@ package models;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import models.Entrada;
 
 public class Evento {
     private String id;
@@ -39,6 +40,7 @@ public class Evento {
         return true;
         }
 
+        /*
         public double calcularRecaudacion(){
         double total = 0;
         for (Entrada e : entradasVendidas){
@@ -46,6 +48,7 @@ public class Evento {
         }
         return total;
         }
+        */
 
     public void reiniciarSala() {
         for (int i = 0; i < asientos.length; i++){
