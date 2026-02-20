@@ -1,20 +1,22 @@
 package controllers;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.util.List;
+import models.Administrador;
 
 public class LoginAdminController {
+
+    static Administrador admin;
 
     @FXML
     private Button btn_login_admin;
@@ -25,36 +27,61 @@ public class LoginAdminController {
 
     @FXML
     void MostrarAdmin(ActionEvent event) {
-        String usuario = txt_username_admin.getText() != null ? txt_username_admin.getText().trim() : "";
-        String password = txt_password_admin.getText() != null ? txt_password_admin.getText() : "";
-
-        if (usuario.isEmpty() || password.isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campos vacíos", "Por favor ingrese usuario y contraseña.");
-            return;
+        if (validarAdmin()) {
+            try {
+                FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/AdminView.fxml"));
+                Parent root = loader.load();
+                Stage stage = new javafx.stage.Stage();
+                stage.setScene(new javafx.scene.Scene(root));
+                stage.setTitle("Panel Administrativo");
+                stage.show();
+                
+                Stage currentStage = (Stage) btn_login_admin.getScene().getWindow();
+                currentStage.close();
+            } catch (Exception e) {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de administrador.");
+                e.printStackTrace();
+            }
         }
 
-        /*
+    }
+
+    private boolean validarAdmin() {
+        String nombreIngresado = txt_username_admin.getText();
+        String passwordIngresado = txt_password_admin.getText();
+
+        if (nombreIngresado == null || nombreIngresado.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "El nombre de usuario no puede estar vacío.");
+            return false;
+        }
+        if (passwordIngresado == null || passwordIngresado.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "La contraseña no puede estar vacía.");
+            return false;
+        }
+
         try {
-            List<models.Administrador> admins = PersistenciaAdministradores.cargarAdministradores();
-            boolean valido = admins.stream()
-                    .anyMatch(a -> usuario.equals(a.getName()) && password.equals(a.getPassword()));
-
-            if (valido) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AdminView.fxml"));
-                Parent root = loader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root));
-                stage.setTitle("Módulo Administrativo");
-                stage.show();
-
-                Stage loginStage = (Stage) btn_login_admin.getScene().getWindow();
-                loginStage.close();
-            } else {
-                mostrarAlerta(Alert.AlertType.ERROR, "Acceso denegado", "Usuario o contraseña incorrectos.");
+            if (admin == null) {
+                admin = new Administrador("", "");
             }
-        } catch (IOException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo cargar la vista de administración.");
-        }*/
+            admin.cargarDesdeArchivo();
+            ArrayList<Administrador> lista = admin.getLista();
+
+            for (Administrador a : lista) {
+                if (a.getName().equals(nombreIngresado) && a.getPassword().equals(passwordIngresado)) {
+                    return true;
+                }
+            }
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Nombre de usuario o contraseña incorrectos.");
+            return false;
+        } catch (NullPointerException e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error inesperado.");
+            e.printStackTrace();
+            return false;
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al validar datos");
+            e.printStackTrace();
+            return false;
+        }
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

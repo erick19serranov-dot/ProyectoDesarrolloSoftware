@@ -40,12 +40,13 @@ public class BillboardViewController {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de cartelera.");
+            return;
         }
         Scene scene = new Scene(root);
         Stage stage = (Stage) btn_Cartelera_Main.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-        adminViewController.publicarEventoTabla(event);
     }
 
     @FXML
@@ -56,6 +57,8 @@ public class BillboardViewController {
             root = loader.load();
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de compra entrada.");
+            return;
         }
         Scene scene = new Scene(root);
         Stage stage = (Stage) btn_Entradas_Main.getScene().getWindow();
