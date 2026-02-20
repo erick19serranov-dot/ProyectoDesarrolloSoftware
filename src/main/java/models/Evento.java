@@ -23,6 +23,7 @@ public class Evento {
         this.fecha = fecha;
         this.hora = hora;
         this.precioBase = precioBase;
+        this.asientos = new boolean[15][10];
     }
 
 

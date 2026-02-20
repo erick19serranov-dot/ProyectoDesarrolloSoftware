@@ -10,10 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.Evento;
 
 public class BillboardViewController {
 
@@ -21,6 +21,8 @@ public class BillboardViewController {
 
     @FXML
     private Button btn_Admin_Main;
+    @FXML
+    private ImageView image_ucr_billboard;
     @FXML
     private Button btn_Cartelera_Main;
     @FXML
@@ -63,21 +65,21 @@ public class BillboardViewController {
 
     @FXML
     void MostrarLoginAdmin(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
-        Parent root = null;
         try {
-            root = loader.load();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Login Administrador");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de login de administrador.");
         }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) btn_Admin_Main.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
     }
 
-  
-    
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
         alert.setTitle(titulo);
