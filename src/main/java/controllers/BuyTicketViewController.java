@@ -128,7 +128,7 @@ public class BuyTicketViewController {
 
     @FXML
     void mostrarAdmin(ActionEvent event) {
-        // Cuando se presione el boton de administrador, se abre el loginView sin cerrar BuyView
+        
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
             Parent root = loader.load();
@@ -178,8 +178,8 @@ public class BuyTicketViewController {
 
     private void crearAsientos() {
         gp_stage_seats.getChildren().clear();
-        int totalRows = 15;
-        int totalCols = 11;
+        int totalRows = 10;
+        int totalCols = 15;
 
         for (int row = 0; row < totalRows; row++) {
             char rowLetter = (char) ('A' + row);
