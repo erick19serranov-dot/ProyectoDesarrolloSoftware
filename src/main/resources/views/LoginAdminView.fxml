@@ -23,7 +23,7 @@
                      <children>
                         <ImageView disable="true" fitHeight="250.0" fitWidth="250.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="2.0" AnchorPane.topAnchor="2.0">
                            <image>
-                              <Image url="@../../../../../../../../Downloads/thumb_1721761202-2-0028-9645-logo_equipo_kaaret_-_Ariana_Uman_a.png" />
+                              <Image url="file:/C:/Users/erick/OneDrive/Documentos/NetBeansProjects/ProyectoProgramado2026/thumb_1721761202-2-0028-9645-logo_equipo_kaaret_-_Ariana_Uman_a.png" />
                            </image>
                         </ImageView>
                      </children>

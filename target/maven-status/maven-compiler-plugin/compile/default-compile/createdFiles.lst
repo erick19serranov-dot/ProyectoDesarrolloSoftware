@@ -6,6 +6,7 @@ controllers\EventCardController.class
 controllers\BuyTicketViewController.class
 main\Main.class
 models\EntradaEstudiante.class
+models\Factura.class
 models\Administrador.class
 module-info.class
 models\Entrada.class
