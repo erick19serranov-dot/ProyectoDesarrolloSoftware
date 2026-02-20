@@ -1,10 +1,11 @@
+main\Main$Launcher.class
 models\IImprimible.class
 controllers\PersistenciaAdministradores.class
 controllers\AdminViewController.class
 controllers\EventCardController.class
 controllers\BuyTicketViewController.class
+main\Main.class
 models\EntradaEstudiante.class
-Main\Main$Launcher.class
 models\Administrador.class
 module-info.class
 models\Entrada.class
@@ -12,5 +13,4 @@ models\Evento.class
 models\EntradaGeneral.class
 controllers\LoginAdminController.class
 controllers\BillboardViewController.class
-Main\Main.class
 models\EntradaVIP.class
