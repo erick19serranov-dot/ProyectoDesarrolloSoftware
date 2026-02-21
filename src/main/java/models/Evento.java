@@ -2,8 +2,8 @@ package models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import models.Entrada;
 
 public class Evento {
     private String id;
@@ -16,6 +16,8 @@ public class Evento {
     private boolean [][] asientos;
     private List<Entrada> entradasVendidas;
 
+    private List<Evento> listaEventos;
+
     public Evento(String id, String nombre, String descripcion, LocalDate fecha, LocalDateTime hora, double precioBase) {
         this.id = id;
         this.nombre = nombre;
@@ -24,11 +26,18 @@ public class Evento {
         this.hora = hora;
         this.precioBase = precioBase;
         this.asientos = new boolean[15][10];
+        this.listaEventos = new ArrayList<>();
     }
 
+    public List<Evento> getListaEventos() {
+        return listaEventos;
+    }
 
+    public void setListaEventos(List<Evento> listaEventos) {
+        this.listaEventos = listaEventos;
+    }
 
-        public boolean venderEntrada(Entrada entrada){
+    public boolean venderEntrada(Entrada entrada){
         int fila = entrada.getFila();
         int columna = entrada.getColumna();
 

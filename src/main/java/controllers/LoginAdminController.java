@@ -39,6 +39,7 @@ public class LoginAdminController {
                 }
                 AdminViewController admincontroller = loader.getController();
                 admincontroller.setNombre(txt_username_admin.getText());
+
                 Stage currentStage = (Stage) btn_login_admin.getScene().getWindow();
                 currentStage.close();
             } catch (Exception e) {

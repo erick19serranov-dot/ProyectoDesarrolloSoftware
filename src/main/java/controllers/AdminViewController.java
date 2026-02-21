@@ -148,7 +148,7 @@ public class AdminViewController implements Initializable {
     @FXML
     void agregarEventoTabla(ActionEvent event) {
         crearEvento();
-        limpiarCampos();
+        //limpiarCampos();
     }
 
     @FXML
@@ -278,7 +278,7 @@ public class AdminViewController implements Initializable {
         }
     }
      */
-    
+
     private void crearEvento() {
         String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
         String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
@@ -397,7 +397,7 @@ public class AdminViewController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
     public void setNombre(String nombre) {
         text_username_admin.setText(nombre);
     }
