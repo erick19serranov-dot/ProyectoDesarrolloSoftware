@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -20,7 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,9 +36,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Administrador;
 import models.Evento;
 
 public class AdminViewController implements Initializable {
+
+    static Administrador admin;
+    static LoginAdminController login;
 
     @FXML
     private GridPane billboard_GP_manage;
@@ -146,7 +148,7 @@ public class AdminViewController implements Initializable {
     @FXML
     void agregarEventoTabla(ActionEvent event) {
         crearEvento();
-        limpiarCampos();
+        //limpiarCampos();
     }
 
     @FXML
@@ -276,7 +278,7 @@ public class AdminViewController implements Initializable {
         }
     }
      */
-    
+
     private void crearEvento() {
         String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
         String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
@@ -390,9 +392,14 @@ public class AdminViewController implements Initializable {
             Stage stage = (Stage) btn_goback_event_manage.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            stage.setTitle("Cartelera");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setNombre(String nombre) {
+        text_username_admin.setText(nombre);
     }
 
     private void limpiarCampos() {

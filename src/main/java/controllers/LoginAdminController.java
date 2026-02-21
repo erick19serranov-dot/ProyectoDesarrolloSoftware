@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
@@ -17,7 +16,6 @@ import models.Administrador;
 public class LoginAdminController {
 
     static Administrador admin;
-
     @FXML
     private Button btn_login_admin;
     @FXML
@@ -35,7 +33,13 @@ public class LoginAdminController {
                 stage.setScene(new javafx.scene.Scene(root));
                 stage.setTitle("Panel Administrativo");
                 stage.show();
-                
+                Stage adminStage = stage;
+                for (Stage s : Stage.getWindows().stream().filter(window -> window instanceof Stage).map(window -> (Stage) window) .filter(s -> s != adminStage) .toList()) {
+                    s.close();
+                }
+                AdminViewController admincontroller = loader.getController();
+                admincontroller.setNombre(txt_username_admin.getText());
+
                 Stage currentStage = (Stage) btn_login_admin.getScene().getWindow();
                 currentStage.close();
             } catch (Exception e) {
@@ -83,6 +87,7 @@ public class LoginAdminController {
             return false;
         }
     }
+    
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
