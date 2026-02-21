@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -20,7 +19,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -38,9 +36,13 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import models.Administrador;
 import models.Evento;
 
 public class AdminViewController implements Initializable {
+
+    static Administrador admin;
+    static LoginAdminController login;
 
     @FXML
     private GridPane billboard_GP_manage;
@@ -390,6 +392,7 @@ public class AdminViewController implements Initializable {
             Stage stage = (Stage) btn_goback_event_manage.getScene().getWindow();
             stage.setScene(scene);
             stage.show();
+            stage.setTitle("Cartelera");
         } catch (IOException e) {
             e.printStackTrace();
         }
