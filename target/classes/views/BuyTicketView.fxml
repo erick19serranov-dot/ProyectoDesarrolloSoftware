@@ -46,7 +46,7 @@
                                         <Font name="Tahoma Bold" size="14.0" />
                                     </font>
                                 </Button>
-                                <Button fx:id="btn_Entradas_Entradas" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" onAction="#mostrarCompraEntradas" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/BuyTicketView.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.599999999999994">
+                                <Button fx:id="btn_Entradas_Entradas" layoutX="11.0" layoutY="385.0" mnemonicParsing="false" onAction="#mostrarEntradas" prefHeight="49.0" prefWidth="186.0" styleClass="nav-btn" stylesheets="@../styles/BuyTicketView.css" text="Comprar Entradas" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="10.599999999999994">
                                     <font>
                                         <Font name="Tahoma Bold" size="14.0" />
                                     </font>

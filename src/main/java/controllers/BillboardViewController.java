@@ -51,20 +51,18 @@ public class BillboardViewController {
 
     @FXML
     void MostrarCompraEntradas(ActionEvent event) {
+    try {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de compra entrada.");
-            return;
-        }
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage stage = (Stage) btn_Entradas_Main.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de compra de entradas.");
     }
+}
 
     @FXML
     void MostrarLoginAdmin(ActionEvent event) {

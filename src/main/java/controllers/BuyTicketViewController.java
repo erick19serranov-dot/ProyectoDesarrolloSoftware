@@ -1,13 +1,11 @@
 package controllers;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,7 +16,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class BuyTicketViewController {
@@ -96,6 +93,9 @@ public class BuyTicketViewController {
     private TextArea txt_description_event_buy;
 
     @FXML
+    private TextField txt_name_customer;
+
+    @FXML
     private TextField txt_name_event_buy;
 
     @FXML
@@ -108,6 +108,11 @@ public class BuyTicketViewController {
     private TextField txt_seats_available_event_buy;
 
     @FXML
+    public void initialize() {
+        crearAsientos();
+    }
+
+    @FXML
     void agregarCompra(ActionEvent event) {
     }
 
@@ -118,7 +123,23 @@ public class BuyTicketViewController {
 
     @FXML
     void comprarEntrada(ActionEvent event) {
+        try {
+            FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/BillView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new javafx.stage.Stage();
+            stage.setScene(new javafx.scene.Scene(root));
+            stage.setTitle("Factura");
+            stage.show();
 
+            //Pasar datos
+            BillController billController = loader.getController();
+            billController.setNombre(txt_name_customer.getText());
+
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de factura.");
+            e.printStackTrace();
+
+        }
     }
 
     @FXML
@@ -128,77 +149,23 @@ public class BuyTicketViewController {
 
     @FXML
     void mostrarAdmin(ActionEvent event) {
-        
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
-            Parent root = loader.load();
 
-            Stage stage = new Stage();
-            stage.setTitle("Login Administrador");
-            stage.setScene(new Scene(root));
-            stage.initModality(Modality.APPLICATION_MODAL); // Para evitar interacción con la ventana principal mientras está abierto
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de login de administrador.");
-        }
     }
 
     @FXML
     void mostrarCartelera(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de cartelera.");
-            return;
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) btn_Cartelera_Entradas.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+
     }
 
     @FXML
-    void MostrarCompraEntradas(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) btn_Entradas_Entradas.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+    void mostrarEntradas(ActionEvent event) {
+
     }
 
     private void crearAsientos() {
-        gp_stage_seats.getChildren().clear();
-        int totalRows = 10;
-        int totalCols = 15;
-
-        for (int row = 0; row < totalRows; row++) {
-            char rowLetter = (char) ('A' + row);
-            int seatNum = 1;
-
-            for (int col = 0; col < totalCols; col++) {
-                if (col == totalCols / 2) {
-                    continue;
-                }
-
-                String seatLabel = rowLetter + Integer.toString(seatNum);
-                javafx.scene.control.ToggleButton seatBtn = new javafx.scene.control.ToggleButton(seatLabel);
-                seatBtn.setMaxWidth(Double.MAX_VALUE);
-                seatBtn.setMaxHeight(Double.MAX_VALUE);
-                gp_stage_seats.add(seatBtn, col, row);
-                seatNum++;
-            }
-        }
-    }
+        
+    }        
+    
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
