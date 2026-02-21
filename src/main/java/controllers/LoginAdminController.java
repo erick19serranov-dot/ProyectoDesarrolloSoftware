@@ -16,13 +16,12 @@ import models.Administrador;
 public class LoginAdminController {
 
     static Administrador admin;
-
     @FXML
     private Button btn_login_admin;
     @FXML
     private PasswordField txt_password_admin;
     @FXML
-    public TextField txt_username_admin;
+    private TextField txt_username_admin;
 
     @FXML
     void MostrarAdmin(ActionEvent event) {
@@ -38,6 +37,8 @@ public class LoginAdminController {
                 for (Stage s : Stage.getWindows().stream().filter(window -> window instanceof Stage).map(window -> (Stage) window) .filter(s -> s != adminStage) .toList()) {
                     s.close();
                 }
+                AdminViewController admincontroller = loader.getController();
+                admincontroller.setNombre(txt_username_admin.getText());
                 Stage currentStage = (Stage) btn_login_admin.getScene().getWindow();
                 currentStage.close();
             } catch (Exception e) {

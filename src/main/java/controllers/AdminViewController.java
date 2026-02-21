@@ -397,6 +397,10 @@ public class AdminViewController implements Initializable {
             e.printStackTrace();
         }
     }
+    
+    public void setNombre(String nombre) {
+        text_username_admin.setText(nombre);
+    }
 
     private void limpiarCampos() {
         txt_name_event_manage.clear();
