@@ -1,5 +1,6 @@
 package controllers;
 
+import static controllers.BillboardViewController.evento;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -38,6 +39,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import models.Administrador;
 import models.Evento;
+import models.RepositorioEventos;
 
 public class AdminViewController implements Initializable {
 
@@ -143,6 +145,7 @@ public class AdminViewController implements Initializable {
                 cargarEventoEnFormulario(newVal);
             }
         });
+        billboard_ScP_manage.setFitToWidth(true);
     }
 
     @FXML
@@ -195,23 +198,17 @@ public class AdminViewController implements Initializable {
 
     private void publicarEvento() {
         Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
+
         if (seleccionado == null) {
             mostrarAlerta(Alert.AlertType.WARNING, "Sin Selección", "Seleccione un evento de la tabla para publicar.");
             return;
         }
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
-            AnchorPane root = loader.load();
-            EventCardController cardController = loader.getController();
-            cardController.setEvento(seleccionado);
-            int size = billboard_GP_manage.getChildren().size();
-            int col = size % 3;
-            int row = size / 3;
-            billboard_GP_manage.add(root, col, row);
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Evento publicado", "El evento fue publicado correctamente en la cartelera.");
-        } catch (IOException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error al publicar", "No se pudo publicar el evento.");
-        }
+
+        RepositorioEventos.publicarEvento(seleccionado);
+
+        cargarEventosCartelera(billboard_GP_manage);
+
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Evento publicado", "El evento fue publicado correctamente.");
     }
 
     private void editarEvento() {
@@ -256,7 +253,7 @@ public class AdminViewController implements Initializable {
         /*
         eventoController.guardarCambios();
         refrescarTabla();
-        */
+         */
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
     }
@@ -278,12 +275,12 @@ public class AdminViewController implements Initializable {
         }
     }
      */
-
     private void crearEvento() {
         String nombre = txt_name_event_manage.getText() != null ? txt_name_event_manage.getText().trim() : "";
         String descripcion = txt_description_event_manage.getText() != null ? txt_description_event_manage.getText().trim() : "";
         LocalDate fecha = date_event_manage.getValue();
         String precioStr = txt_price_event_manage.getText() != null ? txt_price_event_manage.getText().trim() : "";
+        Image imagen = image_event_manage.getImage();
 
         if (nombre.isEmpty()) {
             mostrarAlerta(Alert.AlertType.WARNING, "Campos requeridos", "Ingrese el nombre del evento.");
@@ -303,19 +300,20 @@ public class AdminViewController implements Initializable {
             mostrarAlerta(Alert.AlertType.WARNING, "Dato inválido", "Ingrese un precio válido.");
             return;
         }
+        evento.setImagen(imagen);
 
         int hora = sp_hour_event_manage != null ? sp_hour_event_manage.getValue() : 0;
         int minutos = sp_minutes_event_manage != null ? sp_minutes_event_manage.getValue() : 0;
         LocalDateTime horaEvento = LocalDateTime.of(fecha.getYear(), fecha.getMonthValue(), fecha.getDayOfMonth(), hora, minutos);
 
         String id = "E" + System.currentTimeMillis();
-        Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
-        nuevo.setAsientos(new boolean[15][10]);
+//        Evento nuevo = new Evento(id, nombre, descripcion, fecha, horaEvento, precio);
+//        nuevo.setAsientos(new boolean[15][10]);
         /*
         eventoController.getEventos().add(nuevo);
         eventoController.guardarCambios();
         refrescarTabla();
-        */
+         */
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento agregado", "El evento se ha agregado correctamente.");
     }
@@ -361,8 +359,7 @@ public class AdminViewController implements Initializable {
         table_manage_event.getItems().clear();
         table_manage_event.getItems().addAll(eventoController.getEventos());
     }
-*/
-
+     */
     private void cargarEventoEnFormulario(Evento e) {
         txt_name_event_manage.setText(e.getNombre());
         txt_description_event_manage.setText(e.getDescripcion() != null ? e.getDescripcion() : "");
@@ -395,6 +392,36 @@ public class AdminViewController implements Initializable {
             stage.setTitle("Cartelera");
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void cargarEventosCartelera(GridPane gridpane) {
+
+        gridpane.getChildren().clear();
+
+        int col = 0;
+        int row = 0;
+
+        for (Evento evento : RepositorioEventos.getEventosPublicados()) {
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
+                AnchorPane card = loader.load();
+
+                EventCardController controller = loader.getController();
+                controller.setEvento(evento);
+
+                gridpane.add(card, col, row);
+
+                col++;
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

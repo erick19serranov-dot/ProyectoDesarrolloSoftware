@@ -28,7 +28,10 @@
             </AnchorPane>
             <AnchorPane prefHeight="117.0" prefWidth="150.0" stylesheets="@../styles/eventcardview.css">
                <children>
-                  <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="15.0" layoutY="12.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="12.0" AnchorPane.topAnchor="12.0" />
+                  <ImageView fx:id="img_event_card"
+                             fitHeight="120.0"
+                             fitWidth="120.0"
+                             preserveRatio="true" />
                </children>
                <styleClass>
                   <String fx:value="shadow" />

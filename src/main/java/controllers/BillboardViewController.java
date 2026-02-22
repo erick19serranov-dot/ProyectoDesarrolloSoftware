@@ -12,10 +12,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.Evento;
+import models.RepositorioEventos;
 
 public class BillboardViewController {
 
@@ -36,6 +38,12 @@ public class BillboardViewController {
     private ScrollPane sc_billboard_main;
 
     @FXML
+    public void initialize() {
+        cargarEventos();
+        sc_billboard_main.setFitToWidth(true);
+    }
+
+    @FXML
     void MostrarCartelera(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
         Parent root = null;
@@ -50,7 +58,6 @@ public class BillboardViewController {
         Stage stage = (Stage) btn_Cartelera_Main.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-        setCartaEvento(evento.getListaEventos());
         
     }
 
@@ -86,95 +93,36 @@ public class BillboardViewController {
         }
     }
 
-    public void setEventoBillboard(Parent eventCardView) {
+    private void cargarEventos() {
 
-        double anchoScroll = sc_billboard_main.getViewportBounds().getWidth();
-        if (anchoScroll == 0) {
+        gp_billboard_main.getChildren().clear();
 
-            anchoScroll = sc_billboard_main.getPrefViewportWidth();
-        }
-        if (anchoScroll == 0) {
-            anchoScroll = 600;
-        }
+        int col = 0;
+        int row = 0;
 
-        double anchoCard = 180;
+        for (Evento evento : RepositorioEventos.getEventosPublicados()) {
 
-        int numCols = Math.max(1, (int) (anchoScroll / anchoCard));
-
-        int totalCards = gp_billboard_main.getChildren().size();
-        int col = totalCards % numCols;
-        int row = totalCards / numCols;
-
-        gp_billboard_main.add(eventCardView, col, row);
-
-        gp_billboard_main.setMaxWidth(anchoCard * numCols);
-        gp_billboard_main.setPrefWidth(anchoCard * numCols);
-
-        sc_billboard_main.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
-        sc_billboard_main.setVbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED);
-    }
-
-    public void setCartaEvento(List<Evento> eventos) {
-        try {
-
-            gp_billboard_main.getChildren().clear();
-            gp_billboard_main.getColumnConstraints().clear();
-            gp_billboard_main.getRowConstraints().clear();
-
-            int maxColumns = 3;
-            double anchoScroll = sc_billboard_main.getWidth();
-            if (anchoScroll > 420) { 
-                maxColumns = (int) (anchoScroll / 210);
-                if (maxColumns < 1) maxColumns = 1;
-                if (maxColumns > 5) maxColumns = 5;
-            }
-
-            int col = 0;
-            int row = 0;
-            for (models.Evento evento : eventos) {
+            try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
-                javafx.scene.Node eventCard = loader.load();
+                AnchorPane card = loader.load();
 
-                controllers.EventCardController cardController = loader.getController();
-                cardController.setEvento(evento);
+                EventCardController controller = loader.getController();
+                controller.setEvento(evento);
 
-                gp_billboard_main.add(eventCard, col, row);
+                gp_billboard_main.add(card, col, row);
 
                 col++;
-                if (col == maxColumns) {
+                if (col == 3) {
                     col = 0;
                     row++;
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-
-            // Configurar el GridPane para que crezca solo en filas, no en columnas
-            gp_billboard_main.setMinWidth(0);
-            gp_billboard_main.setMaxWidth(Double.MAX_VALUE);
-
-            sc_billboard_main.setFitToWidth(true);
-            // El scroll pane solo scroll vertical
-            sc_billboard_main.setHbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.NEVER);
-            sc_billboard_main.setVbarPolicy(javafx.scene.control.ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            mostrarAlerta(javafx.scene.control.Alert.AlertType.ERROR, "Error", "No se pudieron cargar los eventos.");
         }
     }
 
-    // Llamar setCartaEvento al abrir la cartelera
-    @FXML
-    public void initialize() {
-        // Aquí iría la lógica para obtener la lista de eventos, reemplazar por fuente real
-        java.util.List<models.Evento> listaEventos = obtenerEventosParaCartelera();
-        setCartaEvento(listaEventos);
-    }
-
-    // Método simulado para obtener eventos
-    private java.util.List<models.Evento> obtenerEventosParaCartelera() {
-        // TODO: Reemplazar con acceso real a los eventos disponibles
-        return new java.util.ArrayList<>();
-    }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
