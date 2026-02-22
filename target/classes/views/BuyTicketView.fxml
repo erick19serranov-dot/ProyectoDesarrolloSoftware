@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.String?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -185,12 +184,7 @@
                                              <children>
                                                 <HBox layoutX="203.0" layoutY="50.0" prefHeight="302.0" prefWidth="651.0" AnchorPane.bottomAnchor="-28.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
                                                    <children>
-                                                      <AnchorPane prefHeight="215.0" prefWidth="36.0" styleClass="nav-form-seats" stylesheets="@../styles/buyticketview.css">
-                                                         <HBox.margin>
-                                                            <Insets left="10.0" />
-                                                         </HBox.margin>
-                                                      </AnchorPane>
-                                                      <AnchorPane fx:id="pane_stage_seats" prefHeight="270.0" prefWidth="617.0" stylesheets="@../styles/buyticketview.css">
+                                                      <AnchorPane fx:id="pane_stage_seats" prefHeight="302.0" prefWidth="658.0" stylesheets="@../styles/buyticketview.css">
                                                          <children>
                                                             <GridPane fx:id="gp_stage_seats" layoutX="14.0" layoutY="14.0" prefHeight="92.0" prefWidth="164.0">
                                                               <columnConstraints>

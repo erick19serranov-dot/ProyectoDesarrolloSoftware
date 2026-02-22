@@ -45,6 +45,7 @@ public class AdminViewController implements Initializable {
 
     static Administrador admin;
     static LoginAdminController login;
+    static BuyTicketViewController ticketController;
 
     @FXML
     private GridPane billboard_GP_manage;
@@ -411,6 +412,8 @@ public class AdminViewController implements Initializable {
                 EventCardController controller = loader.getController();
                 controller.setEvento(evento);
 
+                controller.setOnEventoSeleccionado(e -> {ticketController.cargarAsientos(e, false);});
+
                 gridpane.add(card, col, row);
 
                 col++;
@@ -432,19 +435,8 @@ public class AdminViewController implements Initializable {
     private void limpiarCampos() {
         txt_name_event_manage.clear();
         txt_description_event_manage.clear();
-        txt_date_manage_billboard.clear();
         txt_price_event_manage.clear();
         txt_seats_manage_billboard.clear();
-        if (date_event_manage != null) {
-            date_event_manage.setValue(null);
-        }
-        if (sp_hour_event_manage != null) {
-            sp_hour_event_manage.getValueFactory().setValue(0);
-        }
-        if (sp_minutes_event_manage != null) {
-            sp_minutes_event_manage.getValueFactory().setValue(0);
-        }
-        image_event_manage.setImage(null);
         table_manage_event.getSelectionModel().clearSelection();
     }
 

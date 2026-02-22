@@ -1,13 +1,18 @@
 package controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,13 +21,29 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.Evento;
 import models.RepositorioEventos;
 
 public class BuyTicketViewController {
+
+    private Evento eventoActual;
+    private List<ToggleButton> asientosSeleccionados = new ArrayList<>();
+
+    public void setEvento(Evento evento) {
+        this.eventoActual = evento;
+
+        // Aquí se cargan los asientos
+        cargarAsientos(eventoActual, false);
+    }
 
     @FXML
     private Button btn_Cartelera_Entradas;
@@ -128,6 +149,7 @@ public class BuyTicketViewController {
 
     @FXML
     void comprarEntrada(ActionEvent event) {
+
         try {
             FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/BillView.fxml"));
             Parent root = loader.load();
@@ -154,17 +176,87 @@ public class BuyTicketViewController {
 
     @FXML
     void mostrarAdmin(ActionEvent event) {
+    try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
+            Parent root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("Login Administrador");
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de login de administrador.");
+        }
 
     }
 
     @FXML
     void mostrarCartelera(ActionEvent event) {
 
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Cartelera");
+        stage.show();
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+    } catch (Exception e) {
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de Cartelera.");
+        e.printStackTrace();
+    }
     }
 
     @FXML
     void mostrarEntradas(ActionEvent event) {
 
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Comprar Entradas");
+            stage.show();
+
+            Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            for (Window window : Window.getWindows()) {
+                if (window != stage && window instanceof Stage) {
+                    window.hide();
+                }
+            }
+
+        } catch (Exception e) {
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de comprar entradas.");
+            e.printStackTrace();
+        }
+    }
+
+    //Método para factura
+    public void confirmarReserva() {
+
+        boolean[][] matriz = eventoActual.getAsientos();
+
+        for (ToggleButton t : asientosSeleccionados) {
+
+            String etiqueta = t.getText();
+
+            int fila = etiqueta.charAt(0) - 'A';
+            int col = Integer.parseInt(etiqueta.substring(1)) - 1;
+
+            matriz[fila][col] = true;
+
+            t.setDisable(true);
+            t.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        }
+
+        asientosSeleccionados.clear();
     }
 
 
@@ -184,6 +276,10 @@ public class BuyTicketViewController {
                 EventCardController controller = loader.getController();
                 controller.setEvento(evento);
 
+                controller.setOnEventoSeleccionado(event -> {
+                    cargarAsientos(event, false);
+                });
+
                 gp_billboard_buy_event.add(card, col, row);
 
                 col++;
@@ -198,9 +294,91 @@ public class BuyTicketViewController {
         }
     }
 
-    private void crearAsientos() {
-        
-    }        
+    public void cargarAsientos(Evento evento, boolean isVIP) {
+
+        this.eventoActual = evento;
+        gp_stage_seats.getChildren().clear();
+        asientosSeleccionados.clear();
+
+        gp_stage_seats.getColumnConstraints().clear();
+        gp_stage_seats.getRowConstraints().clear();
+
+        for (int c = 0; c < 15; c++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setPercentWidth(100.0 / 15);
+            col.setHgrow(Priority.ALWAYS);
+            gp_stage_seats.getColumnConstraints().add(col);
+        }
+
+        for (int f = 0; f < 10; f++) {
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100.0 / 10);
+            row.setVgrow(Priority.ALWAYS);
+            gp_stage_seats.getRowConstraints().add(row);
+        }
+
+        for (int fila = 0; fila < 10; fila++) {
+            for (int col = 0; col < 15; col++) {
+
+                if (col == 7) {
+                    continue;
+                }
+
+                String etiqueta = generarNumeroAsiento(fila, col > 7 ? col - 1 : col);
+
+                ToggleButton asiento = new ToggleButton(etiqueta);
+                asiento.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+                int columnaReal = col > 7 ? col - 1 : col;
+
+                boolean[][] matriz = evento.getAsientos();
+
+                if (matriz[fila][columnaReal]) {
+                    asiento.setDisable(true);
+                    asiento.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                } else {
+                    asiento.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                }
+
+                int f = fila;
+                int c = columnaReal;
+
+                asiento.setOnAction(e -> {
+
+                    if (f == 0 && !isVIP) {
+                        asiento.setSelected(false);
+                        return;
+                    }
+
+                    if (asiento.isSelected()) {
+                        asiento.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+                        asientosSeleccionados.add(asiento);
+                    } else {
+                        asiento.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                        asientosSeleccionados.remove(asiento);
+                    }
+                });
+
+                gp_stage_seats.add(asiento, col, fila);
+            }
+        }
+    }
+
+    //Método para obtener los asientos seleccionados en texto
+    public List<String> obtenerAsientosSeleccionados() {
+        List<String> seleccionados = new ArrayList<>();
+
+        for (ToggleButton t : asientosSeleccionados) {
+            seleccionados.add(t.getText());
+        }
+
+        return seleccionados;
+    }
+
+    private String generarNumeroAsiento(int fila, int col) {
+        char letra = (char) ('A' + fila);
+        return letra + String.valueOf(col + 1);
+    }
     
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

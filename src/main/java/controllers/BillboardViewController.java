@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,6 +20,7 @@ import models.RepositorioEventos;
 
 public class BillboardViewController {
 
+    static BuyTicketViewController buyTicketController;
     static AdminViewController adminViewController;
     static Evento evento;
 
@@ -109,6 +109,10 @@ public class BillboardViewController {
                 EventCardController controller = loader.getController();
                 controller.setEvento(evento);
 
+                controller.setOnEventoSeleccionado(e -> {
+                    abrirBuyTicket(e);
+                });
+
                 gp_billboard_main.add(card, col, row);
 
                 col++;
@@ -120,6 +124,22 @@ public class BillboardViewController {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void abrirBuyTicket(Evento evento) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
+            Parent root = loader.load();
+
+            BuyTicketViewController controller = loader.getController();
+            controller.setEvento(evento);
+
+            Stage stage = (Stage) gp_billboard_main.getScene().getWindow();
+            stage.setScene(new Scene(root));
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
