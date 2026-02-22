@@ -2,27 +2,24 @@ package controllers;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import models.Evento;
 import models.RepositorioEventos;
 
 public class BuyTicketViewController {
+
+    private Evento eventoActual;
+    private List<ToggleButton> asientosSeleccionados = new ArrayList<>();
 
     @FXML
     private Button btn_Cartelera_Entradas;
@@ -167,6 +164,27 @@ public class BuyTicketViewController {
 
     }
 
+    //Método para factura
+    public void confirmarReserva() {
+
+        boolean[][] matriz = eventoActual.getAsientos();
+
+        for (ToggleButton t : asientosSeleccionados) {
+
+            String etiqueta = t.getText();
+
+            int fila = etiqueta.charAt(0) - 'A';
+            int col = Integer.parseInt(etiqueta.substring(1)) - 1;
+
+            matriz[fila][col] = true;
+
+            t.setDisable(true);
+            t.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+        }
+
+        asientosSeleccionados.clear();
+    }
+
 
     private void cargarEventos() {
 
@@ -198,9 +216,91 @@ public class BuyTicketViewController {
         }
     }
 
-    private void crearAsientos() {
-        
-    }        
+    public void cargarAsientos(Evento evento, boolean isVIP) {
+
+        this.eventoActual = evento;
+        gp_stage_seats.getChildren().clear();
+        asientosSeleccionados.clear();
+
+        gp_stage_seats.getColumnConstraints().clear();
+        gp_stage_seats.getRowConstraints().clear();
+
+        for (int c = 0; c < 15; c++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setPercentWidth(100.0 / 15);
+            col.setHgrow(Priority.ALWAYS);
+            gp_stage_seats.getColumnConstraints().add(col);
+        }
+
+        for (int f = 0; f < 10; f++) {
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100.0 / 10);
+            row.setVgrow(Priority.ALWAYS);
+            gp_stage_seats.getRowConstraints().add(row);
+        }
+
+        for (int fila = 0; fila < 10; fila++) {
+            for (int col = 0; col < 15; col++) {
+
+                if (col == 7) {
+                    continue;
+                }
+
+                String etiqueta = generarNumeroAsiento(fila, col > 7 ? col - 1 : col);
+
+                ToggleButton asiento = new ToggleButton(etiqueta);
+                asiento.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+                int columnaReal = col > 7 ? col - 1 : col;
+
+                boolean[][] matriz = evento.getAsientos();
+
+                if (matriz[fila][columnaReal]) {
+                    asiento.setDisable(true);
+                    asiento.setStyle("-fx-background-color: red; -fx-text-fill: white;");
+                } else {
+                    asiento.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                }
+
+                int f = fila;
+                int c = columnaReal;
+
+                asiento.setOnAction(e -> {
+
+                    if (f == 0 && !isVIP) {
+                        asiento.setSelected(false);
+                        return;
+                    }
+
+                    if (asiento.isSelected()) {
+                        asiento.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
+                        asientosSeleccionados.add(asiento);
+                    } else {
+                        asiento.setStyle("-fx-background-color: green; -fx-text-fill: white;");
+                        asientosSeleccionados.remove(asiento);
+                    }
+                });
+
+                gp_stage_seats.add(asiento, col, fila);
+            }
+        }
+    }
+
+    //Método para obtener los asientos seleccionados en texto
+    public List<String> obtenerAsientosSeleccionados() {
+        List<String> seleccionados = new ArrayList<>();
+
+        for (ToggleButton t : asientosSeleccionados) {
+            seleccionados.add(t.getText());
+        }
+
+        return seleccionados;
+    }
+
+    private String generarNumeroAsiento(int fila, int col) {
+        char letra = (char) ('A' + fila);
+        return letra + String.valueOf(col + 1);
+    }
     
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

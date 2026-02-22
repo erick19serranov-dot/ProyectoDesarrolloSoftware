@@ -15,7 +15,7 @@ public class Evento {
     private LocalDateTime hora;
     private double precioBase;
 
-    private boolean[][] asientos;
+    private boolean[][] asientos = new boolean [10][14];
     private List<Entrada> entradasVendidas;
 
     private List<Evento> listaEventos;
@@ -29,7 +29,7 @@ public class Evento {
         this.fecha = fecha;
         this.hora = hora;
         this.precioBase = precioBase;
-        this.asientos = new boolean[15][10];
+        this.asientos = new boolean[10][14];
         this.listaEventos = new ArrayList<>();
         this.image = image;
     }

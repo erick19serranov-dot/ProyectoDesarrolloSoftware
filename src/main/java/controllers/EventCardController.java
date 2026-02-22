@@ -17,7 +17,7 @@ public class EventCardController implements Initializable {
 
     private Evento evento;
 
-    
+
     @FXML
     private AnchorPane pane_event_card;
     @FXML
@@ -37,6 +37,7 @@ public class EventCardController implements Initializable {
         actualizarNombreEvento();
 
     }
+
     public void setEvento(Evento evento) {
         this.evento = evento;
         actualizarNombreEvento();
