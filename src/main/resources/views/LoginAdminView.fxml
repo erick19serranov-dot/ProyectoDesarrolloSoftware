@@ -47,7 +47,7 @@
                                     </Label>
                                  </children>
                               </Pane>
-                              <Pane layoutX="27.0" layoutY="80.0" prefHeight="165.0" prefWidth="337.0" styleClass="nav-login" stylesheets="@../styles/loginadminview.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0">
+                              <Pane layoutX="27.0" layoutY="80.0" prefHeight="165.0" prefWidth="337.0" styleClass="nav-login" stylesheets="@../styles/loginadminview.css" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="78.4">
                                  <children>
                                     <TextField fx:id="txt_username_admin" layoutX="68.0" layoutY="14.0" prefHeight="30.0" prefWidth="200.0" promptText="Usuario" styleClass="textField" stylesheets="@../styles/loginadminview.css">
                                        <font>

@@ -15,4 +15,5 @@ controllers\BillController.class
 models\EntradaGeneral.class
 controllers\LoginAdminController.class
 controllers\BillboardViewController.class
+models\EventoSeleccionado.class
 models\EntradaVIP.class

@@ -9,10 +9,13 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import models.Evento;
 import models.RepositorioEventos;
 
@@ -158,17 +161,63 @@ public class BuyTicketViewController {
 
     @FXML
     void mostrarAdmin(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Login");
+        stage.show();
+    } catch (Exception e) {
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de Login.");
+        e.printStackTrace();
+    }
 
     }
 
     @FXML
     void mostrarCartelera(ActionEvent event) {
 
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Cartelera");
+        stage.show();
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        currentStage.close();
+
+    } catch (Exception e) {
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de Cartelera.");
+        e.printStackTrace();
+    }
     }
 
     @FXML
     void mostrarEntradas(ActionEvent event) {
 
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setTitle("Comprar Entradas");
+        stage.show();
+
+        Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        for (Window window : Window.getWindows()) {
+            if (window != stage && window instanceof Stage) {
+                window.hide();
+            }
+        }
+
+    } catch (Exception e) {
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la vista de comprar entradas.");
+        e.printStackTrace();
+    }
     }
 
     //Método para factura

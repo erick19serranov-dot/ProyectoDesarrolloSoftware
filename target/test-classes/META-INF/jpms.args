@@ -1,4 +1,0 @@
---patch-module
-com.proyectoprogramado2026=_
---add-reads
-com.proyectoprogramado2026=ALL-UNNAMED
