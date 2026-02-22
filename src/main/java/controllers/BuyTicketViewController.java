@@ -21,6 +21,13 @@ public class BuyTicketViewController {
     private Evento eventoActual;
     private List<ToggleButton> asientosSeleccionados = new ArrayList<>();
 
+    public void setEvento(Evento evento) {
+        this.eventoActual = evento;
+
+        // Aquí se cargan los asientos
+        cargarAsientos(eventoActual, false);
+    }
+
     @FXML
     private Button btn_Cartelera_Entradas;
 
@@ -201,6 +208,10 @@ public class BuyTicketViewController {
 
                 EventCardController controller = loader.getController();
                 controller.setEvento(evento);
+
+                controller.setOnEventoSeleccionado(event -> {
+                    cargarAsientos(event, false);
+                });
 
                 gp_billboard_buy_event.add(card, col, row);
 

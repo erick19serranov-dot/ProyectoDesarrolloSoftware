@@ -12,11 +12,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import models.Evento;
+import models.EventoSeleccionado;
 
 public class EventCardController implements Initializable {
 
     private Evento evento;
+    private EventoSeleccionado listener;
 
+    public void setOnEventoSeleccionado(EventoSeleccionado listener) {
+        this.listener = listener;
+    }
 
     @FXML
     private AnchorPane pane_event_card;
@@ -35,6 +40,9 @@ public class EventCardController implements Initializable {
     @FXML
     void setCard(ActionEvent event) {
         actualizarNombreEvento();
+        if (listener != null) {
+            listener.eventoSeleccionado(evento);
+        }
 
     }
 
