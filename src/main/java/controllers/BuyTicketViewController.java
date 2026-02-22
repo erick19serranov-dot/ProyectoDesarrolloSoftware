@@ -1,6 +1,8 @@
 package controllers;
 
+import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +19,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import models.Evento;
+import models.RepositorioEventos;
 
 public class BuyTicketViewController {
 
@@ -108,8 +112,9 @@ public class BuyTicketViewController {
     private TextField txt_seats_available_event_buy;
 
     @FXML
-    public void initialize() {
-        crearAsientos();
+    public void initialize(URL location, ResourceBundle resources) {
+        cargarEventos();
+        sp_billboard_buy_event.setFitToWidth(true);
     }
 
     @FXML
@@ -160,6 +165,37 @@ public class BuyTicketViewController {
     @FXML
     void mostrarEntradas(ActionEvent event) {
 
+    }
+
+
+    private void cargarEventos() {
+
+        gp_billboard_buy_event.getChildren().clear();
+
+        int col = 0;
+        int row = 0;
+
+        for (Evento evento : RepositorioEventos.getEventosPublicados()) {
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
+                AnchorPane card = loader.load();
+
+                EventCardController controller = loader.getController();
+                controller.setEvento(evento);
+
+                gp_billboard_buy_event.add(card, col, row);
+
+                col++;
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void crearAsientos() {

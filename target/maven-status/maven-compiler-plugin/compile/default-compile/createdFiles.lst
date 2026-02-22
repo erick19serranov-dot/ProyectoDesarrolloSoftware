@@ -1,6 +1,6 @@
 main\Main$Launcher.class
 models\IImprimible.class
-controllers\PersistenciaAdministradores.class
+models\RepositorioEventos.class
 controllers\AdminViewController.class
 controllers\EventCardController.class
 controllers\BuyTicketViewController.class
@@ -11,6 +11,7 @@ models\Administrador.class
 module-info.class
 models\Entrada.class
 models\Evento.class
+controllers\BillController.class
 models\EntradaGeneral.class
 controllers\LoginAdminController.class
 controllers\BillboardViewController.class
