@@ -1,17 +1,19 @@
 package controllers;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import models.Evento;
+
 import java.io.IOException;
 import java.util.Optional;
 
 public class AdminViewC {
 
-    private Evento eventoCtrl = new Evento();
+    private EventoC eventoCtrl = new EventoC();
 
     @FXML private TextField txtIdEvento, txtNombre, txtFecha, txtPrecioBase, txtFilas, txtColumnas;
     @FXML private TextArea txtAreaEventos;
@@ -100,7 +102,7 @@ public class AdminViewC {
         TextField txtNuevoNombre = new TextField(evento.getNombre());
         txtNuevoNombre.setPromptText("Nombre del evento");
 
-        TextField txtNuevaFecha = new TextField(evento.getFecha());
+        TextField txtNuevaFecha = new TextField(evento.getFecha() != null ? evento.getFecha().toString() : "");
         txtNuevaFecha.setPromptText("Fecha (DD/MM/YYYY)");
 
         TextField txtNuevoPrecio = new TextField(String.valueOf(evento.getPrecioBase()));
@@ -210,42 +212,37 @@ public class AdminViewC {
     }
 
     private void cargarEventos() {
+        if (tablaEventos == null) return;
         tablaEventos.getItems().clear();
         tablaEventos.getItems().addAll(eventoCtrl.getEventos());
     }
 
     private void configurarTablaEventos() {
-
-        if (colId == null) {
-            colId = new TableColumn<>("ID");
+        if (colId != null) {
             colId.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getId()));
-
-            colNombre = new TableColumn<>("Nombre");
+        }
+        if (colNombre != null) {
             colNombre.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNombre()));
-
-            colFecha = new TableColumn<>("Fecha");
-            colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFecha()));
-
-            colPrecioBase = new TableColumn<>("Precio Base");
-            colPrecioBase.setCellValueFactory(cellData -> {
-                Double precio = cellData.getValue().getPrecioBase();
-                return new javafx.beans.property.SimpleObjectProperty<>(precio);
-            });
-
-
-            tablaEventos.getColumns().clear();
-            tablaEventos.getColumns().addAll(colId, colNombre, colFecha, colPrecioBase);
+        }
+        if (colFecha != null) {
+            colFecha.setCellValueFactory(cellData -> new SimpleStringProperty(
+                    cellData.getValue().getFecha() != null ? cellData.getValue().getFecha().toString() : ""));
+        }
+        if (colPrecioBase != null) {
+            colPrecioBase.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().getPrecioBase()));
         }
 
-
-        TableColumn<Evento, Integer> colCapacidad = new TableColumn<>("Capacidad");
-        colCapacidad.setCellValueFactory(cellData -> {
-            boolean[][] asientos = cellData.getValue().getAsientos();
-            int capacidad = asientos.length * asientos[0].length;
-            return new javafx.beans.property.SimpleObjectProperty<>(capacidad);
-        });
-
-        tablaEventos.getColumns().add(colCapacidad);
+        if (tablaEventos != null && tablaEventos.getColumns().stream().noneMatch(c -> "Capacidad".equals(c.getText()))) {
+            TableColumn<Evento, Integer> colCapacidad = new TableColumn<>("Capacidad");
+            colCapacidad.setCellValueFactory(cellData -> {
+                boolean[][] asientos = cellData.getValue().getAsientos();
+                int capacidad = (asientos != null && asientos.length > 0 && asientos[0] != null)
+                        ? asientos.length * asientos[0].length
+                        : 0;
+                return new SimpleObjectProperty<>(capacidad);
+            });
+            tablaEventos.getColumns().add(colCapacidad);
+        }
     }
 
     private void limpiarCampos() {
@@ -266,8 +263,9 @@ public class AdminViewC {
     }
 
     private void validarEntradaNumerica(TextField campo) {
+        if (campo == null) return;
         campo.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*\\.?\\d*")) {
+            if (newValue != null && !newValue.matches("\\d*\\.?\\d*")) {
                 campo.setText(oldValue);
             }
         });

@@ -21,9 +21,14 @@ public class EventoC {
 
     public void crearEvento(String idEvento, String nombre, String fecha,
                             double precioBase, int filas, int columnas) {
-
-        Evento nuevo = new Evento(idEvento, nombre, LocalDate.parse(fecha), precioBase, filas, columnas);
-        eventos.add(nuevo);
+        try {
+            LocalDate fechaEvento = LocalDate.parse(fecha);
+            Evento nuevo = new Evento(idEvento, nombre, "", fechaEvento, null, precioBase);
+            nuevo.setAsientos(new boolean[filas][columnas]);
+            eventos.add(nuevo);
+        } catch (Exception e) {
+            System.err.println("Error al crear el evento: " + e.getMessage());
+        }
     }
 
     public boolean editarEvento(String idEvento, String nuevoNombre,
@@ -34,10 +39,16 @@ public class EventoC {
             return false;
         }
 
-        e.setNombre(nuevoNombre);
-        e.setFecha(nuevaFecha);
-        e.setPrecioBase(nuevoPrecioBase);
-        return true;
+        try {
+            LocalDate fechaEvento = LocalDate.parse(nuevaFecha);
+            e.setNombre(nuevoNombre);
+            e.setFecha(fechaEvento);
+            e.setPrecioBase(nuevoPrecioBase);
+            return true;
+        } catch (Exception ex) {
+            System.err.println("Error al editar el evento: " + ex.getMessage());
+            return false;
+        }
     }
 
     public boolean eliminarEvento(String idEvento) {

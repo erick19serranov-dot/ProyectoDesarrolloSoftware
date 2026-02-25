@@ -2,13 +2,17 @@ package models;
 
 public class Administrador {
 
-private String name;
-private String password;
+    private String name;
+    private String password;
 
-public Administrador(String name, String password) {
-    this.name = name;
-    this.password = password;
-}
+    public Administrador(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
+
+    // Constructor por defecto necesario para PersistenciaAdministradores
+    public Administrador() {
+    }
 
     public String getName() {
         return name;

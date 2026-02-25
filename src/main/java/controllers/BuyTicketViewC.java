@@ -6,15 +6,19 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import models.*;
+import models.Entrada;
+import models.EntradaEstudiante;
+import models.EntradaGeneral;
+import models.EntradaVIP;
+import models.Evento;
 import java.util.Optional;
 
 public class BuyTicketViewC {
 
     private EventoC eventoCtrl = new EventoC();
-    private EventoC eventoSeleccionado;
+    private Evento eventoSeleccionado;
 
-    @FXML private ComboBox<EventoC> comboEventos;
+    @FXML private ComboBox<Evento> comboEventos;
     @FXML private GridPane gridAsientos;
     @FXML private Label lblNombreEvento, lblFecha, lblPrecioBase;
     @FXML private TextField txtNombreCliente;
@@ -40,7 +44,7 @@ public class BuyTicketViewC {
         eventoSeleccionado = comboEventos.getSelectionModel().getSelectedItem();
         if (eventoSeleccionado != null) {
             lblNombreEvento.setText(eventoSeleccionado.getNombre());
-            lblFecha.setText(eventoSeleccionado.getFecha());
+            lblFecha.setText(eventoSeleccionado.getFecha() != null ? eventoSeleccionado.getFecha().toString() : "");
             lblPrecioBase.setText("$" + eventoSeleccionado.getPrecioBase());
 
             gridAsientos.getChildren().clear();
@@ -115,6 +119,8 @@ public class BuyTicketViewC {
                 generarTicket(entrada);
                 actualizarVistaAsientos();
                 mostrarAlerta("Éxito", "Venta realizada correctamente", Alert.AlertType.INFORMATION);
+                // Mostrar factura de la compra
+                BillViewController.mostrarFactura(entrada, eventoSeleccionado);
             }
 
         } catch (Exception e) {

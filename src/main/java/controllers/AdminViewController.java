@@ -421,4 +421,4 @@ private void editarEvento() {
         actualizarFacturacion();
         limpiarCampos();
         mostrarAlerta(Alert.AlertType.INFORMATION, "Evento modificado", "El evento se ha actualizado correctamente.");
-    }
+    }}
