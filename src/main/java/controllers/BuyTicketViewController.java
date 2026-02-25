@@ -1,5 +1,15 @@
 package controllers;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URL;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.ResourceBundle;
+
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,21 +21,30 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import models.*;
-
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URL;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import models.Entrada;
+import models.EntradaEstudiante;
+import models.EntradaGeneral;
+import models.EntradaVIP;
+import models.Evento;
+import models.Factura;
+import models.RepositorioEventos;
 
 public class BuyTicketViewController implements Initializable {
 
@@ -220,7 +239,7 @@ public class BuyTicketViewController implements Initializable {
             stage.setTitle("Factura");
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace(); // ¡IMPORTANTE! Esto mostrará el error en consola
+            e.printStackTrace(); 
             mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo mostrar la factura.");
         }
     }
@@ -284,6 +303,7 @@ public class BuyTicketViewController implements Initializable {
     void mostrarEntradas(ActionEvent event) {
         cargarEventos();
     }
+    
 
     private void cargarEventos() {
         gp_billboard_buy_event.getChildren().clear();
@@ -319,7 +339,7 @@ public class BuyTicketViewController implements Initializable {
         }
         for (int f = 0; f < 10; f++) {
             RowConstraints row = new RowConstraints();
-            row.setPercentHeight(100.0 / 10);
+            row.setPercentHeight(100.0 / 9);
             row.setVgrow(Priority.ALWAYS);
             gp_stage_seats.getRowConstraints().add(row);
         }

@@ -1,22 +1,20 @@
 package main;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+public class Main {
+public static void main(String[] args) {
+    javafx.application.Application.launch(Launcher.class, args);
+}
 
-public class Main extends Application {
+public static class Launcher extends javafx.application.Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
-        Parent root = loader.load();
+    public void start(javafx.stage.Stage primaryStage) throws Exception {
+        javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
+        javafx.scene.Parent root = loader.load();
+        javafx.scene.Scene scene = new javafx.scene.Scene(root);
         primaryStage.setTitle("Cartelera");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
+}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }

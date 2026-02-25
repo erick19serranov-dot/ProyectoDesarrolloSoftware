@@ -22,6 +22,13 @@ public class BillController {
     @FXML private TextField txt_subtotal_bill;
     @FXML private TextField txt_total_bill;
 
+
+    @FXML
+    void imprimirBill() {
+        mostrarAlerta(Alert.AlertType.INFORMATION, "Imprimir", "Factura generada en archivo.");
+    }
+
+    
     public void setFactura(Factura factura, String cliente, String detalles) {
         txt_name_customer_bill.setText(cliente);
         txt_id_bill.setText(String.valueOf(factura.getNumeroFactura()));
@@ -29,11 +36,6 @@ public class BillController {
         txt_iva_bill.setText(String.format("%.2f", factura.getSubtotal() * factura.getIva()));
         txt_total_bill.setText(String.format("%.2f", factura.getTotal()));
         txt_date_bill.setText(java.time.LocalDate.now().toString());
-    }
-
-    @FXML
-    void imprimirBill() {
-        mostrarAlerta(Alert.AlertType.INFORMATION, "Imprimir", "Factura generada en archivo.");
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

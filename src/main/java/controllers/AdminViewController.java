@@ -30,49 +30,92 @@ import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
 
-    @FXML private GridPane billboard_GP_manage;
-    @FXML private ScrollPane billboard_ScP_manage;
-    @FXML private Button btn_add_event_manage;
-    @FXML private ToggleButton btn_available_billboard;
-    @FXML private Button btn_cancel_event_manage;
-    @FXML private Button btn_delete_event_manage;
-    @FXML private Button btn_goback_event_manage;
-    @FXML private Button btn_import_image_event_manage;
-    @FXML private Button btn_manage_event_billboard;
-    @FXML private Button btn_post_event_manage;
-    @FXML private Button btn_update_event_manage;
-    @FXML private ComboBox<String> cmb_category_event_manage;
-    @FXML private DatePicker date_event_manage;
-    @FXML private ImageView image_event_manage;
-    @FXML private AnchorPane image_pane;
-    @FXML private Label number_event_active_billboard;
-    @FXML private Label number_income_concerts_billboard;
-    @FXML private Label number_income_plays_billboard;
-    @FXML private Label number_tickets_regular_billboard;
-    @FXML private Label number_tickets_sold_billboard;
-    @FXML private Label number_tickets_student_billboard;
-    @FXML private Label number_tickets_vip_billboard;
-    @FXML private Label number_total_event_billboard;
-    @FXML private Label number_total_income_billboard;
-    @FXML private Spinner<Integer> sp_hour_event_manage;
-    @FXML private Spinner<Integer> sp_minutes_event_manage;
-    @FXML private TableView<Evento> table_manage_event;
-    @FXML private TableColumn<Evento, String> tbl_col_category_manage_event;
-    @FXML private TableColumn<Evento, LocalDate> tbl_col_date_manage_event;
-    @FXML private TableColumn<Evento, String> tbl_col_description_manage_event;
-    @FXML private TableColumn<Evento, String> tbl_col_id_manage_event;
-    @FXML private TableColumn<Evento, String> tbl_col_name_manage_event;
-    @FXML private TableColumn<Evento, Double> tbl_col_price_manage_event;
-    @FXML private TableColumn<Evento, LocalDateTime> tbl_col_time_manage_event;
-    @FXML private Label text_username_admin;
-    @FXML private TextField txt_date_manage_billboard;
-    @FXML private TextField txt_description_event_manage;
-    @FXML private TextArea txt_description_manage_billboard;
-    @FXML private TextField txt_name_event_manage;
-    @FXML private TextField txt_name_manage_billboard;
-    @FXML private TextField txt_price_event_manage;
-    @FXML private TextField txt_price_manage_billboard;
-    @FXML private TextField txt_seats_manage_billboard;
+    @FXML
+    private GridPane billboard_GP_manage;
+    @FXML
+    private ScrollPane billboard_ScP_manage;
+    @FXML
+    private Button btn_add_event_manage;
+    @FXML
+    private ToggleButton btn_available_billboard;
+    @FXML
+    private Button btn_cancel_event_manage;
+    @FXML
+    private Button btn_delete_event_manage;
+    @FXML
+    private Button btn_goback_event_manage;
+    @FXML
+    private Button btn_import_image_event_manage;
+    @FXML
+    private Button btn_manage_event_billboard;
+    @FXML
+    private Button btn_post_event_manage;
+    @FXML
+    private Button btn_update_event_manage;
+    @FXML
+    private ComboBox<String> cmb_category_event_manage;
+    @FXML
+    private DatePicker date_event_manage;
+    @FXML
+    private ImageView image_event_manage;
+    @FXML
+    private AnchorPane image_pane;
+    @FXML
+    private Label number_event_active_billboard;
+    @FXML
+    private Label number_income_concerts_billboard;
+    @FXML
+    private Label number_income_plays_billboard;
+    @FXML
+    private Label number_tickets_regular_billboard;
+    @FXML
+    private Label number_tickets_sold_billboard;
+    @FXML
+    private Label number_tickets_student_billboard;
+    @FXML
+    private Label number_tickets_vip_billboard;
+    @FXML
+    private Label number_total_event_billboard;
+    @FXML
+    private Label number_total_income_billboard;
+    @FXML
+    private Spinner<Integer> sp_hour_event_manage;
+    @FXML
+    private Spinner<Integer> sp_minutes_event_manage;
+    @FXML
+    private TableView<Evento> table_manage_event;
+    @FXML
+    private TableColumn<Evento, String> tbl_col_category_manage_event;
+    @FXML
+    private TableColumn<Evento, LocalDate> tbl_col_date_manage_event;
+    @FXML
+    private TableColumn<Evento, String> tbl_col_description_manage_event;
+    @FXML
+    private TableColumn<Evento, String> tbl_col_id_manage_event;
+    @FXML
+    private TableColumn<Evento, String> tbl_col_name_manage_event;
+    @FXML
+    private TableColumn<Evento, Double> tbl_col_price_manage_event;
+    @FXML
+    private TableColumn<Evento, LocalDateTime> tbl_col_time_manage_event;
+    @FXML
+    private Label text_username_admin;
+    @FXML
+    private TextField txt_date_manage_billboard;
+    @FXML
+    private TextField txt_description_event_manage;
+    @FXML
+    private TextArea txt_description_manage_billboard;
+    @FXML
+    private TextField txt_name_event_manage;
+    @FXML
+    private TextField txt_name_manage_billboard;
+    @FXML
+    private TextField txt_price_event_manage;
+    @FXML
+    private TextField txt_price_manage_billboard;
+    @FXML
+    private TextField txt_seats_manage_billboard;
 
     private ObservableList<Evento> eventosList = FXCollections.observableArrayList();
     private String imagenPath;
@@ -85,9 +128,10 @@ public class AdminViewController implements Initializable {
         configurarTabla();
         cargarEventosTabla();
         table_manage_event.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
-            if (newVal != null) cargarEventoEnFormulario(newVal);
+            if (newVal != null) {
+                cargarEventoEnFormulario(newVal);
+            }
         });
-        billboard_ScP_manage.setFitToWidth(true);
         actualizarEstadisticas();
     }
 
@@ -119,15 +163,41 @@ public class AdminViewController implements Initializable {
         table_manage_event.setItems(eventosList);
     }
 
-    @FXML void agregarEventoTabla(ActionEvent event) { crearEvento(); }
-    @FXML void asignarDisponible(ActionEvent event) { }
-    @FXML void cancelarCampos(ActionEvent event) { limpiarCampos(); }
-    @FXML void devolverEventoGestion(ActionEvent event) { }
-    @FXML void eliminarEventoTabla(ActionEvent event) { eliminarEvento(); }
-    @FXML void importarImagen(ActionEvent event) { agregarImagen(); }
-    @FXML void modificarEventoTabla(ActionEvent event) { editarEvento(); }
-    @FXML void publicarEventoTabla(ActionEvent event) { publicarEvento(); }
-    @FXML void regresarPagPrincipal(ActionEvent event) { cargarBillboard(); }
+    @FXML
+    void agregarEventoTabla(ActionEvent event) {
+        crearEvento();
+    }
+
+
+    @FXML
+    void cancelarCampos(ActionEvent event) {
+        limpiarCampos();
+    }
+
+    @FXML
+    void eliminarEventoTabla(ActionEvent event) {
+        eliminarEvento();
+    }
+
+    @FXML
+    void importarImagen(ActionEvent event) {
+        agregarImagen();
+    }
+
+    @FXML
+    void modificarEventoTabla(ActionEvent event) {
+        editarEvento();
+    }
+
+    @FXML
+    void publicarEventoTabla(ActionEvent event) {
+        publicarEvento();
+    }
+
+    @FXML
+    void regresarPagPrincipal(ActionEvent event) {
+        cargarBillboard();
+    }
 
     private void publicarEvento() {
         Evento seleccionado = table_manage_event.getSelectionModel().getSelectedItem();
@@ -158,7 +228,9 @@ public class AdminViewController implements Initializable {
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException();
+            if (precio < 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             mostrarAlerta(Alert.AlertType.WARNING, "Precio inválido", "Ingrese un número válido.");
             return;
@@ -208,7 +280,9 @@ public class AdminViewController implements Initializable {
         double precio;
         try {
             precio = Double.parseDouble(precioStr);
-            if (precio < 0) throw new NumberFormatException();
+            if (precio < 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             mostrarAlerta(Alert.AlertType.WARNING, "Precio inválido", "Ingrese un número válido.");
             return;
@@ -217,7 +291,9 @@ public class AdminViewController implements Initializable {
         LocalDateTime hora = LocalDateTime.of(fecha, java.time.LocalTime.of(sp_hour_event_manage.getValue(), sp_minutes_event_manage.getValue()));
         String id = "E" + System.currentTimeMillis();
         Evento nuevo = new Evento(id, nombre, descripcion, fecha, hora, precio, imagenPath);
-        if (imagenPath != null) nuevo.setImagen(new Image("file:" + imagenPath));
+        if (imagenPath != null) {
+            nuevo.setImagen(new Image("file:" + imagenPath));
+        }
         RepositorioEventos.agregarEvento(nuevo);
         cargarEventosTabla();
         limpiarCampos();
@@ -267,12 +343,19 @@ public class AdminViewController implements Initializable {
                 ((EventCardController) loader.getController()).setEvento(e);
                 grid.add(card, col, row);
                 col++;
-                if (col == 3) { col = 0; row++; }
-            } catch (Exception ex) { ex.printStackTrace(); }
+                if (col == 3) {
+                    col = 0;
+                    row++;
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
-    public void setNombre(String nombre) { text_username_admin.setText(nombre); }
+    public void setNombre(String nombre) {
+        text_username_admin.setText(nombre);
+    }
 
     private void limpiarCampos() {
         txt_name_event_manage.clear();
@@ -295,9 +378,13 @@ public class AdminViewController implements Initializable {
             ingresos += e.calcularRecaudacion();
             for (Entrada ent : e.getEntradasVendidas()) {
                 vendidos++;
-                if (ent instanceof EntradaVIP) vip++;
-                else if (ent instanceof EntradaEstudiante) est++;
-                else gen++;
+                if (ent instanceof EntradaVIP) {
+                    vip++;
+                } else if (ent instanceof EntradaEstudiante) {
+                    est++;
+                } else {
+                    gen++;
+                }
             }
         }
         number_total_event_billboard.setText(String.valueOf(total));
