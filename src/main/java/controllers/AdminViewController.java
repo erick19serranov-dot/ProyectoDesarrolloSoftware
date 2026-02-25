@@ -54,6 +54,9 @@ public class AdminViewController implements Initializable {
     private Button btn_update_event_manage;
     @FXML
     private ComboBox<String> cmb_category_event_manage;
+    
+    @FXML
+    private ComboBox<?> cmb_search_event;
     @FXML
     private DatePicker date_event_manage;
     @FXML
