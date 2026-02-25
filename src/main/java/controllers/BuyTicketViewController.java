@@ -364,9 +364,13 @@ public class BuyTicketViewController implements Initializable {
                 asiento.setOnAction(e -> {
                     if (asiento.isDisabled()) return;
                     if (f == 0 && !isVIP) {
-                        asiento.setSelected(false);
-                        mostrarAlerta(Alert.AlertType.WARNING, "Fila VIP", "La primera fila es solo para VIP.");
-                        return;
+                        if (cmb_category_event_buy.getValue() != null && cmb_category_event_buy.getValue().equals("VIP")) {
+                            asiento.setSelected(true);
+                        } else {
+                            asiento.setSelected(false);
+                            mostrarAlerta(Alert.AlertType.WARNING, "Fila VIP", "La primera fila es solo para VIP.");
+                            return;
+                        }
                     }
                     if (asiento.isSelected()) {
                         asiento.setStyle("-fx-background-color: yellow; -fx-text-fill: black;");
