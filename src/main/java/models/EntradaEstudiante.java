@@ -1,8 +1,7 @@
 package models;
 
 public class EntradaEstudiante extends Entrada {
-
-    private double porcentajeDescuento = 0.2;
+    private double porcentajeDescuento = 0.2; // 20% descuento
 
     public EntradaEstudiante(String idEntrada, int fila, int columna) {
         super(idEntrada, fila, columna);

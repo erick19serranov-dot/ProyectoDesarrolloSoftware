@@ -4,6 +4,7 @@ module com.proyectoprogramado2026 {
 
     opens controllers to javafx.fxml;
     opens main to javafx.fxml;
+    opens models to javafx.base;
 
     exports main;
 }
