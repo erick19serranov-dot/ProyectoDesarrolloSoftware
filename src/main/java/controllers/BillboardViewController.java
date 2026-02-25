@@ -1,7 +1,5 @@
 package controllers;
 
-import java.io.IOException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,24 +16,16 @@ import javafx.stage.Stage;
 import models.Evento;
 import models.RepositorioEventos;
 
+import java.io.IOException;
+
 public class BillboardViewController {
 
-    static BuyTicketViewController buyTicketController;
-    static AdminViewController adminViewController;
-    static Evento evento;
-
-    @FXML
-    private Button btn_Admin_Main;
-    @FXML
-    private ImageView image_ucr_billboard;
-    @FXML
-    private Button btn_Cartelera_Main;
-    @FXML
-    private Button btn_Entradas_Main;
-    @FXML
-    private GridPane gp_billboard_main;
-    @FXML
-    private ScrollPane sc_billboard_main;
+    @FXML private Button btn_Admin_Main;
+    @FXML private ImageView image_ucr_billboard;
+    @FXML private Button btn_Cartelera_Main;
+    @FXML private Button btn_Entradas_Main;
+    @FXML private GridPane gp_billboard_main;
+    @FXML private ScrollPane sc_billboard_main;
 
     @FXML
     public void initialize() {
@@ -45,43 +35,28 @@ public class BillboardViewController {
 
     @FXML
     void MostrarCartelera(ActionEvent event) {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillboardView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de cartelera.");
-            return;
-        }
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) btn_Cartelera_Main.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-        
+        cargarEventos();
     }
 
     @FXML
     void MostrarCompraEntradas(ActionEvent event) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) btn_Entradas_Main.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        e.printStackTrace();
-        mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de compra de entradas.");
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) btn_Entradas_Main.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de compra.");
+        }
     }
-}
 
     @FXML
     void MostrarLoginAdmin(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/LoginAdminView.fxml"));
             Parent root = loader.load();
-
             Stage stage = new Stage();
             stage.setTitle("Login Administrador");
             stage.setScene(new Scene(root));
@@ -89,38 +64,23 @@ public class BillboardViewController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir la ventana de login de administrador.");
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo abrir el login.");
         }
     }
 
     private void cargarEventos() {
-
         gp_billboard_main.getChildren().clear();
-
-        int col = 0;
-        int row = 0;
-
+        int col = 0, row = 0;
         for (Evento evento : RepositorioEventos.getEventosPublicados()) {
-
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/EventCardView.fxml"));
                 AnchorPane card = loader.load();
-
                 EventCardController controller = loader.getController();
                 controller.setEvento(evento);
-
-                controller.setOnEventoSeleccionado(e -> {
-                    abrirBuyTicket(e);
-                });
-
+                controller.setOnEventoSeleccionado(e -> abrirBuyTicket(e));
                 gp_billboard_main.add(card, col, row);
-
                 col++;
-                if (col == 3) {
-                    col = 0;
-                    row++;
-                }
-
+                if (col == 3) { col = 0; row++; }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,18 +91,14 @@ public class BillboardViewController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BuyTicketView.fxml"));
             Parent root = loader.load();
-
             BuyTicketViewController controller = loader.getController();
             controller.setEvento(evento);
-
             Stage stage = (Stage) gp_billboard_main.getScene().getWindow();
             stage.setScene(new Scene(root));
-
         } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);

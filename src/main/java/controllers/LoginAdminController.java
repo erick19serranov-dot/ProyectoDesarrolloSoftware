@@ -1,11 +1,10 @@
 package controllers;
 
-import java.util.ArrayList;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -13,32 +12,27 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import models.Administrador;
 
+import java.util.ArrayList;
+
 public class LoginAdminController {
 
-    static Administrador admin;
-    @FXML
-    private Button btn_login_admin;
-    @FXML
-    private PasswordField txt_password_admin;
-    @FXML
-    private TextField txt_username_admin;
+    @FXML private Button btn_login_admin;
+    @FXML private PasswordField txt_password_admin;
+    @FXML private TextField txt_username_admin;
 
     @FXML
     void MostrarAdmin(ActionEvent event) {
         if (validarAdmin()) {
             try {
-                FXMLLoader loader = new javafx.fxml.FXMLLoader(getClass().getResource("/views/AdminView.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/AdminView.fxml"));
                 Parent root = loader.load();
-                Stage stage = new javafx.stage.Stage();
-                stage.setScene(new javafx.scene.Scene(root));
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
                 stage.setTitle("Panel Administrativo");
                 stage.show();
-                Stage adminStage = stage;
-                for (Stage s : Stage.getWindows().stream().filter(window -> window instanceof Stage).map(window -> (Stage) window) .filter(s -> s != adminStage) .toList()) {
-                    s.close();
-                }
-                AdminViewController admincontroller = loader.getController();
-                admincontroller.setNombre(txt_username_admin.getText());
+
+                AdminViewController adminController = loader.getController();
+                adminController.setNombre(txt_username_admin.getText());
 
                 Stage currentStage = (Stage) btn_login_admin.getScene().getWindow();
                 currentStage.close();
@@ -47,47 +41,31 @@ public class LoginAdminController {
                 e.printStackTrace();
             }
         }
-
     }
 
     private boolean validarAdmin() {
-        String nombreIngresado = txt_username_admin.getText();
-        String passwordIngresado = txt_password_admin.getText();
+        String nombre = txt_username_admin.getText();
+        String password = txt_password_admin.getText();
 
-        if (nombreIngresado == null || nombreIngresado.trim().isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "El nombre de usuario no puede estar vacío.");
+        if (nombre == null || nombre.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "Ingrese el nombre de usuario.");
             return false;
         }
-        if (passwordIngresado == null || passwordIngresado.trim().isEmpty()) {
-            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "La contraseña no puede estar vacía.");
+        if (password == null || password.trim().isEmpty()) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Campo obligatorio", "Ingrese la contraseña.");
             return false;
         }
 
-        try {
-            if (admin == null) {
-                admin = new Administrador("", "");
+        Administrador admin = new Administrador("", "");
+        admin.cargarDesdeArchivo();
+        for (Administrador a : admin.getLista()) {
+            if (a.getName().equals(nombre) && a.getPassword().equals(password)) {
+                return true;
             }
-            admin.cargarDesdeArchivo();
-            ArrayList<Administrador> lista = admin.getLista();
-
-            for (Administrador a : lista) {
-                if (a.getName().equals(nombreIngresado) && a.getPassword().equals(passwordIngresado)) {
-                    return true;
-                }
-            }
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Nombre de usuario o contraseña incorrectos.");
-            return false;
-        } catch (NullPointerException e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Ha ocurrido un error inesperado.");
-            e.printStackTrace();
-            return false;
-        } catch (Exception e) {
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error al validar datos");
-            e.printStackTrace();
-            return false;
         }
+        mostrarAlerta(Alert.AlertType.ERROR, "Error", "Credenciales incorrectas.");
+        return false;
     }
-    
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);
