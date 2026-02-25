@@ -25,8 +25,8 @@ public class BillController {
     public void setFactura(Factura factura, String cliente, String detalles) {
         txt_name_customer_bill.setText(cliente);
         txt_id_bill.setText(String.valueOf(factura.getNumeroFactura()));
-        txt_subtotal_bill.setText(String.format("%.2f", factura.getSubtotal()));
-        txt_iva_bill.setText(String.format("%.2f", factura.getSubtotal() * factura.getIva()));
+        txt_subtotal_bill.setText(""); // No se muestra subtotal
+        txt_iva_bill.setText("");       // No se muestra IVA
         txt_total_bill.setText(String.format("%.2f", factura.getTotal()));
         txt_date_bill.setText(java.time.LocalDate.now().toString());
     }

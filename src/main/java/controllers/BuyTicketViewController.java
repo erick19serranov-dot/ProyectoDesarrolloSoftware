@@ -17,21 +17,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.*;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BuyTicketViewController implements Initializable {
 
     private Evento eventoActual;
     private List<ToggleButton> asientosSeleccionados = new ArrayList<>();
     private ObservableList<Entrada> carrito = FXCollections.observableArrayList();
+    private Map<String, Evento> mapaEventos = new HashMap<>();
 
     @FXML private Button btn_Cartelera_Entradas;
     @FXML private Button btn_Entradas_Entradas;
@@ -60,12 +59,13 @@ public class BuyTicketViewController implements Initializable {
     @FXML private TextField txt_name_customer;
     @FXML private TextField txt_name_event_buy;
     @FXML private TextField txt_price_event_buy;
-    @FXML private TextField txt_search_event_buy;
+    @FXML private ComboBox<String> cmb_search_event; // Nuevo ComboBox
     @FXML private TextField txt_seats_available_event_buy;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         cargarEventos();
+        actualizarComboEventos();
         sp_billboard_buy_event.setFitToWidth(true);
         configurarComboTipo();
         configurarTablaCarrito();
@@ -92,10 +92,33 @@ public class BuyTicketViewController implements Initializable {
         tbl_col_date_time_buy_event.setCellValueFactory(cellData -> new javafx.beans.property.SimpleObjectProperty<>(eventoActual != null ? eventoActual.getHora() : null));
     }
 
+    private void actualizarComboEventos() {
+        cmb_search_event.getItems().clear();
+        mapaEventos.clear();
+        for (Evento e : RepositorioEventos.getEventosPublicados()) {
+            String nombre = e.getNombre() + " (" + e.getFecha() + ")";
+            cmb_search_event.getItems().add(nombre);
+            mapaEventos.put(nombre, e);
+        }
+    }
+
+    @FXML
+    void buscarEventoSeleccionado(ActionEvent event) {
+        String seleccion = cmb_search_event.getSelectionModel().getSelectedItem();
+        if (seleccion != null) {
+            Evento evento = mapaEventos.get(seleccion);
+            if (evento != null) {
+                setEvento(evento);
+            }
+        }
+    }
+
     public void setEvento(Evento evento) {
         this.eventoActual = evento;
         cargarAsientos(eventoActual, false);
         actualizarInfoEvento();
+        String clave = evento.getNombre() + " (" + evento.getFecha() + ")";
+        cmb_search_event.getSelectionModel().select(clave);
     }
 
     private void actualizarInfoEvento() {
@@ -188,6 +211,7 @@ public class BuyTicketViewController implements Initializable {
             actualizarInfoEvento();
             txt_name_customer.clear();
             txt_amount_event_buy.clear();
+            actualizarComboEventos(); // Refrescar combo por si cambió algo
         }
     }
 
@@ -202,7 +226,9 @@ public class BuyTicketViewController implements Initializable {
     }
 
     private void guardarFactura(String texto, int numero) {
-        try (PrintWriter pw = new PrintWriter(new FileWriter("facturas/factura_" + numero + ".txt"))) {
+        File dir = new File("facturas");
+        if (!dir.exists()) dir.mkdirs();
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File(dir, "factura_" + numero + ".txt")))) {
             pw.print(texto);
         } catch (IOException e) {
             e.printStackTrace();
@@ -220,7 +246,7 @@ public class BuyTicketViewController implements Initializable {
             stage.setTitle("Factura");
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace(); // ¡IMPORTANTE! Esto mostrará el error en consola
+            e.printStackTrace();
             mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo mostrar la factura.");
         }
     }
@@ -228,7 +254,15 @@ public class BuyTicketViewController implements Initializable {
     @FXML
     void eliminarCompra(ActionEvent event) {
         Entrada seleccionada = table_shopping_list.getSelectionModel().getSelectedItem();
-        if (seleccionada != null) {
+        if (seleccionada == null) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione una entrada del carrito.");
+            return;
+        }
+
+        Optional<ButtonType> result = new Alert(Alert.AlertType.CONFIRMATION,
+                "¿Eliminar la entrada del asiento " + seleccionada.getAsientoTexto() + "?",
+                ButtonType.OK, ButtonType.CANCEL).showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             carrito.remove(seleccionada);
             String asientoTexto = seleccionada.getAsientoTexto();
             for (Node node : gp_stage_seats.getChildren()) {
@@ -243,8 +277,6 @@ public class BuyTicketViewController implements Initializable {
                 }
             }
             actualizarTotal();
-        } else {
-            mostrarAlerta(Alert.AlertType.WARNING, "Sin selección", "Seleccione una entrada del carrito.");
         }
     }
 
@@ -302,6 +334,7 @@ public class BuyTicketViewController implements Initializable {
                 e.printStackTrace();
             }
         }
+        actualizarComboEventos();
     }
 
     public void cargarAsientos(Evento evento, boolean isVIP) {
