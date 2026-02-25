@@ -57,4 +57,16 @@ public class Factura {
         sb.append("TOTAL: ").append(String.format("%.2f", total)).append("\n");
         return sb.toString();
     }
+
+    public double IVA;{
+          double IVA = subtotal * 0.13;
+    }
+    public double Total;{
+        double Total = subtotal + IVA;
+    }
+    public double subtotal() {
+
+        return subtotal;
+    }
+
 }
