@@ -79,7 +79,6 @@ public class BuyTicketViewController implements Initializable {
     @FXML private TextField txt_name_customer;
     @FXML private TextField txt_name_event_buy;
     @FXML private TextField txt_price_event_buy;
-    @FXML private TextField txt_search_event_buy;
     @FXML private TextField txt_seats_available_event_buy;
 
     @Override
