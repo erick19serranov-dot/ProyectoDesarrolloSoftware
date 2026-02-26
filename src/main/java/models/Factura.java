@@ -13,11 +13,21 @@ public class Factura {
         this.total = calcularTotal();
     }
 
-    public int getNumeroFactura() { return numeroFactura; }
-    public double getSubtotal() { return subtotal; }
-    public void setSubtotal(double subtotal) { this.subtotal = subtotal; this.total = calcularTotal(); }
-    public double getIva() { return iva; }
-    public double getTotal() { return total; }
+    public int getNumeroFactura() {
+        return numeroFactura;
+    }
+    public double getSubtotal() {
+        return subtotal;
+    }
+    public void setSubtotal(double subtotal) {
+        this.subtotal = subtotal; this.total = calcularTotal();
+    }
+    public double getIva() {
+        return iva*getSubtotal();
+    }
+    public double getTotal() {
+        return total;
+    }
 
     private double calcularTotal() {
         return subtotal * (1 + iva);
