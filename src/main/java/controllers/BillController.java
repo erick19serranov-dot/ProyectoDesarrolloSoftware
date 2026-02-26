@@ -19,7 +19,6 @@ import java.io.IOException;
 
 
 
-
 public class BillController {
 
     @FXML private Button btn_imprimir_bill;
