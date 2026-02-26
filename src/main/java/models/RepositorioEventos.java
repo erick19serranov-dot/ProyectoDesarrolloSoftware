@@ -56,6 +56,25 @@ public class RepositorioEventos {
         return null;
     }
 
+    /**
+     * Indica si ya existe un evento con el mismo nombre, fecha y hora.
+     * @param nombre nombre del evento
+     * @param hora fecha y hora del evento
+     * @param excluirId id a ignorar (el evento que se está editando), o null al crear uno nuevo
+     */
+    public static boolean existeEventoIgual(String nombre, LocalDateTime hora, String excluirId) {
+        if (nombre == null || hora == null) return false;
+        String nombreNorm = nombre.trim().toLowerCase();
+        for (Evento e : eventos) {
+            if (excluirId != null && e.getId().equals(excluirId)) continue;
+            if (e.getNombre() != null && e.getNombre().trim().toLowerCase().equals(nombreNorm)
+                    && e.getHora() != null && e.getHora().equals(hora)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private static void guardarEvento(Evento evento) {
         File dir = new File(EVENTOS_DIR);
         if (!dir.exists()) dir.mkdirs();

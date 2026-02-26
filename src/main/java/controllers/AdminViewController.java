@@ -237,6 +237,12 @@ public class AdminViewController implements Initializable {
         }
 
         LocalDateTime hora = LocalDateTime.of(fecha, java.time.LocalTime.of(sp_hour_event_manage.getValue(), sp_minutes_event_manage.getValue()));
+
+        if (RepositorioEventos.existeEventoIgual(nombre, hora, seleccionado.getId())) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Evento duplicado", "Ya existe otro evento con el mismo nombre, fecha y hora.");
+            return;
+        }
+
         seleccionado.setNombre(nombre);
         seleccionado.setDescripcion(descripcion);
         seleccionado.setFecha(fecha);
@@ -289,6 +295,12 @@ public class AdminViewController implements Initializable {
         }
 
         LocalDateTime hora = LocalDateTime.of(fecha, java.time.LocalTime.of(sp_hour_event_manage.getValue(), sp_minutes_event_manage.getValue()));
+
+        if (RepositorioEventos.existeEventoIgual(nombre, hora, null)) {
+            mostrarAlerta(Alert.AlertType.WARNING, "Evento duplicado", "Ya existe un evento con el mismo nombre, fecha y hora.");
+            return;
+        }
+
         String id = "E" + System.currentTimeMillis();
         Evento nuevo = new Evento(id, nombre, descripcion, fecha, hora, precio, imagenPath);
         if (imagenPath != null) {

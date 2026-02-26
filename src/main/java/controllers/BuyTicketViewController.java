@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -88,6 +89,9 @@ public class BuyTicketViewController implements Initializable {
         configurarComboTipo();
         configurarTablaCarrito();
         table_shopping_list.setItems(carrito);
+        RepositorioEventos.getEventosPublicados().addListener((ListChangeListener<Evento>) c -> {
+            cargarEventos();
+        });
     }
 
     private void configurarComboTipo() {
