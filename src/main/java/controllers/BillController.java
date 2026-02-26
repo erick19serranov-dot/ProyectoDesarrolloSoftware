@@ -7,6 +7,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
 import models.Factura;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class BillController {
 
     @FXML private Button btn_imprimir_bill;
@@ -21,22 +24,18 @@ public class BillController {
     @FXML private TextField txt_name_customer_bill;
     @FXML private TextField txt_subtotal_bill;
     @FXML private TextField txt_total_bill;
-
+//
+//    @Override
+//    public void initialize(URL location, ResourceBundle resources) {
+//
+//    }
 
     @FXML
     void imprimirBill() {
+
         mostrarAlerta(Alert.AlertType.INFORMATION, "Imprimir", "Factura generada en archivo.");
     }
-
     
-    public void setFactura(Factura factura, String cliente, String detalles) {
-        txt_name_customer_bill.setText(cliente);
-        txt_id_bill.setText(String.valueOf(factura.getNumeroFactura()));
-        txt_subtotal_bill.setText(String.format("%.2f", factura.getSubtotal()));
-        txt_iva_bill.setText(String.format("%.2f", factura.getSubtotal() * factura.getIva()));
-        txt_total_bill.setText(String.format("%.2f", factura.getTotal()));
-        txt_date_bill.setText(java.time.LocalDate.now().toString());
-    }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {
         Alert alert = new Alert(tipo);

@@ -198,7 +198,7 @@ public class BuyTicketViewController implements Initializable {
             String detalles = generarDetalleFactura();
             String textoFactura = factura.generarTextoFactura(nombreCliente, detalles);
             guardarFactura(textoFactura, factura.getNumeroFactura());
-            mostrarFactura(factura, nombreCliente, detalles);
+            mostrarFactura();
 
             carrito.clear();
             asientosSeleccionados.clear();
@@ -227,12 +227,10 @@ public class BuyTicketViewController implements Initializable {
         }
     }
 
-    private void mostrarFactura(Factura factura, String cliente, String detalles) {
+    private void mostrarFactura() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillView.fxml"));
             Parent root = loader.load();
-            BillController controller = loader.getController();
-            controller.setFactura(factura, cliente, detalles);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Factura");
