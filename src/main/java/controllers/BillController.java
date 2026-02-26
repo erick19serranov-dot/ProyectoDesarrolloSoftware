@@ -20,6 +20,7 @@ import java.awt.image.BufferedImage;
 
 public class BillController {
 
+
     @FXML private Button btn_imprimir_bill;
     @FXML private TableColumn<?, String> tbl_col_category_bill;
     @FXML private TableColumn<?, String> tbl_col_evvent_bill;
