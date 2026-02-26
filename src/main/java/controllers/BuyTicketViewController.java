@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,7 +80,6 @@ public class BuyTicketViewController implements Initializable {
     @FXML private TextField txt_name_customer;
     @FXML private TextField txt_name_event_buy;
     @FXML private TextField txt_price_event_buy;
-    @FXML private TextField txt_search_event_buy;
     @FXML private TextField txt_seats_available_event_buy;
 
     @Override
@@ -89,6 +89,9 @@ public class BuyTicketViewController implements Initializable {
         configurarComboTipo();
         configurarTablaCarrito();
         table_shopping_list.setItems(carrito);
+        RepositorioEventos.getEventosPublicados().addListener((ListChangeListener<Evento>) c -> {
+            cargarEventos();
+        });
     }
 
     private void configurarComboTipo() {
@@ -199,7 +202,7 @@ public class BuyTicketViewController implements Initializable {
             String detalles = generarDetalleFactura();
             String textoFactura = factura.generarTextoFactura(nombreCliente, detalles);
             guardarFactura(textoFactura, factura.getNumeroFactura());
-            mostrarFactura(factura, nombreCliente, detalles);
+            mostrarFactura();
 
             carrito.clear();
             asientosSeleccionados.clear();
@@ -228,12 +231,10 @@ public class BuyTicketViewController implements Initializable {
         }
     }
 
-    private void mostrarFactura(Factura factura, String cliente, String detalles) {
+    private void mostrarFactura() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillView.fxml"));
             Parent root = loader.load();
-            BillController controller = loader.getController();
-            controller.setFactura(factura, cliente, detalles);
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Factura");

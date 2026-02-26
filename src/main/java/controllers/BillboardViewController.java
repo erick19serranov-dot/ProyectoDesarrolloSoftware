@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.collections.ListChangeListener;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,6 +32,9 @@ public class BillboardViewController {
     public void initialize() {
         cargarEventos();
         sc_billboard_main.setFitToWidth(true);
+        RepositorioEventos.getEventosPublicados().addListener((ListChangeListener<Evento>) c -> {
+            cargarEventos();
+        });
     }
 
     @FXML

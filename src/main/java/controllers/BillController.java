@@ -1,24 +1,22 @@
 package controllers;
 
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.image.WritableImage;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import models.Factura;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
-
-
-
+import java.awt.image.BufferedImage;
 
 public class BillController {
 
@@ -47,11 +45,12 @@ public class BillController {
         }
 
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Guardar factura (PDF)");
+        fileChooser.setTitle("Guardar factura (imagen)");
+        fileChooser.getExtensionFilters().clear();
         fileChooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("PDF (*.pdf)", "*.pdf")
+                new FileChooser.ExtensionFilter("Imagen PNG (*.png)", "*.png")
         );
-        fileChooser.setInitialFileName("factura_" + facturaActual.getNumeroFactura() + ".pdf");
+        fileChooser.setInitialFileName("factura_" + facturaActual.getNumeroFactura() + ".png");
 
         Window window = btn_imprimir_bill.getScene() != null ? btn_imprimir_bill.getScene().getWindow() : null;
         File destino = fileChooser.showSaveDialog(window);
@@ -60,106 +59,50 @@ public class BillController {
             return;
         }
 
-        if (!destino.getName().toLowerCase().endsWith(".pdf")) {
-            destino = new File(destino.getParentFile(), destino.getName() + ".pdf");
+        if (!destino.getName().toLowerCase().endsWith(".png")) {
+            destino = new File(destino.getParentFile(), destino.getName() + ".png");
         }
 
         try {
-            generarPdfFactura(destino);
-            mostrarAlerta(Alert.AlertType.INFORMATION, "Exportar factura", "Factura guardada en PDF:\n" + destino.getAbsolutePath());
+            guardarFacturaComoImagen(destino);
+            mostrarAlerta(Alert.AlertType.INFORMATION, "Guardado", "Factura guardada como imagen:\n" + destino.getAbsolutePath());
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo guardar el PDF.");
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo guardar la imagen.\n" + e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "Error inesperado.\n" + e.getMessage());
         }
     }
 
-    private void generarPdfFactura(File destino) throws IOException {
-        try (PDDocument doc = new PDDocument()) {
-            PDPage page = new PDPage(PDRectangle.A4);
-            doc.addPage(page);
-
-            try (PDPageContentStream content = new PDPageContentStream(doc, page)) {
-                PDType1Font fontTitulo = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
-                PDType1Font fontNormal = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
-                float margin = 50;
-                float y = page.getMediaBox().getHeight() - margin;
-                float lineHeight = 14f;
-
-                content.beginText();
-                content.setFont(fontTitulo, 16);
-                content.newLineAtOffset(margin, y);
-                content.showText("FACTURA #" + facturaActual.getNumeroFactura());
-                content.endText();
-                y -= lineHeight * 1.5f;
-
-                content.beginText();
-                content.setFont(fontNormal, 12);
-                content.newLineAtOffset(margin, y);
-                content.showText("Cliente: " + (nombreCliente != null ? nombreCliente : ""));
-                content.endText();
-                y -= lineHeight;
-
-                content.beginText();
-                content.newLineAtOffset(margin, y);
-                content.showText("Fecha: " + java.time.LocalDate.now());
-                content.endText();
-                y -= lineHeight * 1.2f;
-
-                if (detallesFactura != null && !detallesFactura.isEmpty()) {
-                    content.beginText();
-                    content.newLineAtOffset(margin, y);
-                    content.showText("Detalle:");
-                    content.endText();
-                    y -= lineHeight;
-                    for (String linea : detallesFactura.split("\n")) {
-                        if (y < margin + lineHeight) break;
-                        content.beginText();
-                        content.newLineAtOffset(margin + 10, y);
-                        content.showText(linea);
-                        content.endText();
-                        y -= lineHeight;
-                    }
-                    y -= lineHeight * 0.5f;
-                }
-
-                content.beginText();
-                content.newLineAtOffset(margin, y);
-                content.showText("Subtotal: " + String.format("%.2f", facturaActual.getSubtotal()));
-                content.endText();
-                y -= lineHeight;
-
-                content.beginText();
-                content.newLineAtOffset(margin, y);
-                content.showText("IVA (13%): " + String.format("%.2f", facturaActual.getMontoIva()));
-                content.endText();
-                y -= lineHeight;
-
-                content.setFont(fontTitulo, 12);
-                content.beginText();
-                content.newLineAtOffset(margin, y);
-                content.showText("TOTAL: " + String.format("%.2f", facturaActual.getTotal()));
-                content.endText();
-            }
-
-            doc.save(destino);
+    private void guardarFacturaComoImagen(File destino) throws IOException {
+        Scene scene = btn_imprimir_bill.getScene();
+        if (scene == null) {
+            throw new IOException("La ventana de la factura no está disponible.");
         }
+        Node root = scene.getRoot();
+        WritableImage image = root.snapshot(null, null);
+        if (image == null) {
+            throw new IOException("No se pudo capturar la factura.");
+        }
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(image, null);
+        if (bufferedImage == null) {
+            throw new IOException("No se pudo convertir la imagen.");
+        }
+        ImageIO.write(bufferedImage, "png", destino);
     }
 
-    
     public void setFactura(Factura factura, String cliente, String detalles) {
         this.facturaActual = factura;
         this.nombreCliente = cliente;
         this.detallesFactura = detalles;
 
-        txt_name_customer_bill.setText(cliente);
-        txt_id_bill.setText(String.valueOf(factura.getNumeroFactura()));
-        // Subtotal sin IVA
-        txt_subtotal_bill.setText(String.format("%.2f", factura.getSubtotal()));
-        // Solo el IVA calculado
-        txt_iva_bill.setText(String.format("%.2f", factura.getMontoIva()));
-        // Total con IVA incluido
-        txt_total_bill.setText(String.format("%.2f", factura.getTotal()));
-        txt_date_bill.setText(java.time.LocalDate.now().toString());
+        if (txt_name_customer_bill != null) txt_name_customer_bill.setText(cliente != null ? cliente : "");
+        if (txt_id_bill != null) txt_id_bill.setText(String.valueOf(factura.getNumeroFactura()));
+        if (txt_subtotal_bill != null) txt_subtotal_bill.setText(String.format("%.2f", factura.getSubtotal()));
+        if (txt_iva_bill != null) txt_iva_bill.setText(String.format("%.2f", factura.getMontoIva()));
+        if (txt_total_bill != null) txt_total_bill.setText(String.format("%.2f", factura.getTotal()));
+        if (txt_date_bill != null) txt_date_bill.setText(java.time.LocalDate.now().toString());
     }
 
     private void mostrarAlerta(Alert.AlertType tipo, String titulo, String mensaje) {

@@ -1,7 +1,8 @@
 module com.proyectoprogramado2026 {
     requires javafx.controls;
     requires javafx.fxml;
-    requires org.apache.pdfbox;
+    requires javafx.swing;
+    requires java.desktop;
 
     opens controllers to javafx.fxml;
     opens main to javafx.fxml;
