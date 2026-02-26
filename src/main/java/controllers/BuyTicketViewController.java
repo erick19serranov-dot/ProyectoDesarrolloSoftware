@@ -202,7 +202,7 @@ public class BuyTicketViewController implements Initializable {
             String detalles = generarDetalleFactura();
             String textoFactura = factura.generarTextoFactura(nombreCliente, detalles);
             guardarFactura(textoFactura, factura.getNumeroFactura());
-            mostrarFactura();
+            mostrarFactura(factura, nombreCliente, detalles);
 
             carrito.clear();
             asientosSeleccionados.clear();
@@ -231,17 +231,24 @@ public class BuyTicketViewController implements Initializable {
         }
     }
 
-    private void mostrarFactura() {
+    private void mostrarFactura(Factura factura, String cliente, String detalles) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/BillView.fxml"));
             Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Factura");
-            stage.show();
+            BillController controller = loader.getController();
+            if (controller != null) {
+                controller.setFactura(factura, cliente, detalles);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.setTitle("Factura");
+                controller.setStage(stage); // Pasar el stage al controlador
+                stage.show();
+            } else {
+                mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo obtener el controlador de la factura.");
+            }
         } catch (Exception e) {
             e.printStackTrace(); 
-            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo mostrar la factura.");
+            mostrarAlerta(Alert.AlertType.ERROR, "Error", "No se pudo mostrar la factura: " + e.getMessage());
         }
     }
 
